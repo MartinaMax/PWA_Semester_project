@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const project = require("../models/project");
-//const user = require("../models/trail");
 //const {tokenVerification} = require("../validation");
 
 
