@@ -29,10 +29,14 @@ let projectSchema = new Schema (
             ref: 'user', 
             required: true
         },
-        task: {
+        collaboartors: [{
+            type: Schema.Types.ObjectId, 
+            ref: 'user', 
+        }],
+        task: [{
             type: Schema.Types.ObjectId, 
             ref: 'task', 
-        }
+        }]
     }
 );
 
