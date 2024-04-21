@@ -23,16 +23,7 @@ let userSchema = new Schema (
             required: true,
             min: 8,
             max: 255
-        },
-        project: {
-            type: Schema.Types.ObjectId, 
-            ref: 'project',
-        },
-        task: [{
-            type: Schema.Types.ObjectId, 
-            ref: 'task', 
-        }]
-      
+        }
     }
 );
 
