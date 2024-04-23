@@ -25,13 +25,19 @@ let taskSchema = new Schema({
 
   author: {
     type: Schema.Types.ObjectId,
+    ref: "user",
+    required: true
+  },
+
+  collaborators: {
+    type: Schema.Types.ObjectId,
     ref: "user"
-    // required: true
   },
 
   state: {
     type: String
   }
+
 });
 
 module.exports = mongoose.model("task", taskSchema);
