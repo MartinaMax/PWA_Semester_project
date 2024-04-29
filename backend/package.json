@@ -1,7 +1,7 @@
 {
   "name": "pwa-backend",
   "version": "1.0.0",
-  "description": "Progressive Web-Aps backend dev file",
+  "description": "Progressive Web Aps backend dev file",
   "main": "server.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server.js",
@@ -10,7 +10,7 @@
   "keywords": [
     "mongodb",
     "mongoose",
-    "epressjs",
+    "expresjs",
     "nodejs"
   ],
   "author": "Ratinha",
