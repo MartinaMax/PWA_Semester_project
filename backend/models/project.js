@@ -29,7 +29,7 @@ let projectSchema = new Schema (
             ref: 'user', 
             required: true
         },
-        collaboartors: [{
+        collaborators: [{
             type: Schema.Types.ObjectId, 
             ref: 'user', 
         }],
