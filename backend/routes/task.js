@@ -3,7 +3,7 @@ const task = require("../models/task.js");
 
 //Defining the endpoints GET, POST, PUT, DELETE
 
-router.get("/", (req, res) => {
+router.get("/", tokenVerification, (req, res) => {
   task
     .find()
     .then((data) => {
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 //GET /api/project/task?userID
-router.get("/userID", (req, res) => {
+router.get("/userID", tokenVerification, (req, res) => {
   task
     .findById(req.params.userID)
     .then((data) => {
@@ -40,7 +40,7 @@ router.get("/state", (req, res) => {
 });
 
 //POST /api/project/task [auth]
-router.post("/", verifyToken, (req, res) => {
+router.post("/", tokenVerification, (req, res) => {
 // router.post("/", (req, res) => {
   const data = req.body;
   task
@@ -54,7 +54,7 @@ router.post("/", verifyToken, (req, res) => {
 });
 
 //PUT /api/project/task [auth]
-router.put("/:id", verifyToken, (req, res) => {
+router.put("/:id", tokenVerification, (req, res) => {
 // router.put("/:id", (req, res) => {
   const id = req.params.id;
 
@@ -74,7 +74,7 @@ router.put("/:id", verifyToken, (req, res) => {
 });
 
 // DELETE /api/
-router.delete("/:id", verifyToken, (req, res) => {
+router.delete("/:id", tokenVerification, (req, res) => {
 // router.delete("/:id", (req, res) => {
   const id = req.params.id;
 

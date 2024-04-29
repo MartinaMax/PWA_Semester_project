@@ -7,7 +7,7 @@ const project = require("../models/project");
 // GET,POST,UPDATE & DELETE Projects (Only author of the project can)
 
 // GET - Fetch all project based on the userID (tokenVerification)
-router.get("/", (req, res) => {
+router.get("/", tokenVerification, (req, res) => {
 
     project.find()
     .then(data => {res.send(data);})
@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 
 
 // POST - Create a new project in the database (tokenVerification)
-router.post("/", (req, res) => {
+router.post("/", tokenVerification, (req, res) => {
    
     data = req.body;
 
@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
 
 
 // UPDATE - Update a project based on the ID  (tokenVerification)
-router.put("/:id", (req, res) => {
+router.put("/:id", tokenVerification, (req, res) => {
    
     const id = req.params.id;
 
@@ -48,7 +48,7 @@ router.put("/:id", (req, res) => {
 
 
 // DELETE - Delete a project based on the ID  (tokenVerification)
-router.delete("/:id", (req, res) => {
+router.delete("/:id", tokenVerification, (req, res) => {
    
     const id = req.params.id;
 
