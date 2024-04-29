@@ -40,8 +40,8 @@ router.get("/state", (req, res) => {
 });
 
 //POST /api/project/task [auth]
-// router.post("/", verifyToken, (req, res) => {
-router.post("/", (req, res) => {
+router.post("/", verifyToken, (req, res) => {
+// router.post("/", (req, res) => {
   const data = req.body;
   task
     .insertMany(data)
@@ -54,8 +54,8 @@ router.post("/", (req, res) => {
 });
 
 //PUT /api/project/task [auth]
-// router.put("/:id", verifyToken, (req, res) => {
-router.put("/:id", (req, res) => {
+router.put("/:id", verifyToken, (req, res) => {
+// router.put("/:id", (req, res) => {
   const id = req.params.id;
 
   task
@@ -74,8 +74,8 @@ router.put("/:id", (req, res) => {
 });
 
 // DELETE /api/
-//router.delete("/:id", verifyToken, (req, res) => {
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyToken, (req, res) => {
+// router.delete("/:id", (req, res) => {
   const id = req.params.id;
 
   task

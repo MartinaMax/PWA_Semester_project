@@ -36,7 +36,11 @@ let projectSchema = new Schema (
         task: [{
             type: Schema.Types.ObjectId, 
             ref: 'task', 
-        }]
+        }],
+        status: {
+            type: String,
+            required: true
+        }
     }
 );
 
