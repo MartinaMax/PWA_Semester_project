@@ -35,7 +35,8 @@ let taskSchema = new Schema({
   },
 
   state: {
-    type: String
+    type: String,
+    required: true
   }
 
 });
