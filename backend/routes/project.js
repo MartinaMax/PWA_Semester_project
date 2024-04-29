@@ -4,16 +4,34 @@ const { tokenVerification } = require('../validation');
 
 
 
+
 // GET,POST,UPDATE & DELETE Projects (Only author of the project can)
 
-// GET - Fetch all project based on the userID (tokenVerification)
-router.get("/", tokenVerification, (req, res) => {
+// GET - Fetch all project based on the 
+router.get("/:author&collaborators", tokenVerification, (req, res) => {
 
-    project.find()
+    project.find({author: req.params.author}&[{collaborators: req.params.collaborators}])
     .then(data => {res.send(data);})
     .catch(err => {res.status(500).send(JSON.stringify(err));})
-
 });
+
+// router.get("/:id", tokenVerification, async (req, res) => {
+//     try {
+//         const userID = req.user.id;
+
+//         const project = await project.find({
+//             $or: [
+//                 { author: userID },
+//                 { collaborators: userID}
+//             ]
+//         });
+
+//         res.send(project);
+//     } catch (error) {
+//         console.error('Error fetching projects:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
 
 
 // POST - Create a new project in the database (tokenVerification)
