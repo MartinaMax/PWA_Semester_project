@@ -1,10 +1,6 @@
 const router = require("express").Router();
 const task = require("../models/task.js");
-<<<<<<< Updated upstream
 const { tokenVerification } = require('../validation');
-=======
-const {tokenVerification} = require("../validation");
->>>>>>> Stashed changes
 
 //Defining the endpoints GET, POST, PUT, DELETE
 
