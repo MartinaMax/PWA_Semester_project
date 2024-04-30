@@ -25,6 +25,8 @@ export default {
   height: 40px;
   margin-bottom: 15px;
   text-align: center;
+  border: none;
+  background-color: white;
 }
 
 .button-login {
@@ -32,9 +34,12 @@ export default {
   width: 400px;
   height: 40px;
   text-align: center;
+  color: black;
+  background-color: white;
+  border: none;
 }
 
 .title {
-  color: #00B479;
+  color: black;
 }
 </style>

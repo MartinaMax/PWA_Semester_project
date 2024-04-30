@@ -3,7 +3,7 @@
     <article class="logincard">
       <img src="@/assets/avatar.png" alt="Avatar" class="avatar margin-b-15">
       <component :is="activeComp"></component>
-      <p class="margin-b-15">Don't have an account? <button @click="toggleValue = !toggleValue" class="link">Sign up</button></p>
+      <p class="margin-b-15 text-black">Don't have an account? <button @click="toggleValue = !toggleValue" class="link">Sign up</button></p>
     </article>
   </body>
 </template>
@@ -42,8 +42,8 @@ body {
   padding: 60px 50px;
   width: 500px;
   height: fit-content;
-  background-color: #ffffff;
-  color: azure;
+  background-color: #D9D9D9;
+  color: white;
 }
 
 
@@ -55,7 +55,13 @@ body {
 
 .link {
   border: none;
-  background-color: none;
-  color: #001AFF;
+  background-color: #D9D9D9;
+  font-weight: bold;
+  color: #40bd9b;
+  cursor: pointer;
+}
+
+.text-black {
+  color: black;
 }
 </style>
