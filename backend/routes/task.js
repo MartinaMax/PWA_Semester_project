@@ -41,7 +41,7 @@ router.get("/:state", tokenVerification, (req, res) => {
 //POST /api/project/task [auth]
 router.post("/", tokenVerification, (req, res) => {
 // router.post("/", (req, res) => {
-  const data = req.body;
+  data = req.body;
   task
     .insertMany(data)
     .then((data) => {
@@ -78,7 +78,7 @@ router.delete("/:id", tokenVerification, (req, res) => {
   const id = req.params.id;
 
   task
-    .findByIdAndDelete(id, req.body)
+    .findByIdAndDelete(id)
     .then((data) => {
       if (!data) {
         res.status(404).send({
