@@ -78,7 +78,7 @@ router.delete("/:id", tokenVerification, (req, res) => {
   const id = req.params.id;
 
   task
-    .findByIdAndDelete(id, req.body)
+    .findByIdAndDelete(id)
     .then((data) => {
       if (!data) {
         res.status(404).send({
