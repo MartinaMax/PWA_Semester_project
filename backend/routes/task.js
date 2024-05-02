@@ -41,7 +41,7 @@ router.get("/:state", tokenVerification, (req, res) => {
 //POST /api/project/task [auth]
 router.post("/", tokenVerification, (req, res) => {
 // router.post("/", (req, res) => {
-  const data = req.body;
+  data = req.body;
   task
     .insertMany(data)
     .then((data) => {
