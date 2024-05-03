@@ -1,7 +1,7 @@
 <template>
   <h3 class="margin-b-30 title">Log in</h3>
   <div class="form">
-    <input class="form-input" type="email" placeholder="Email" name="email" required v-model="input.email" />
+    <input class="form-input" type="email" placeholder="Email" name="email" v-model="input.email" required />
     <input class="form-input margin-b-15" type="text" placeholder="Password" name="password" v-model="input.password"
       required />
     <button @click="LogIN()" class="margin-b-15 button-login" type="submit">
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import login from "../modules/login";
+import login from "../modules/login"
 
 export default {
   name: "LogIn",
