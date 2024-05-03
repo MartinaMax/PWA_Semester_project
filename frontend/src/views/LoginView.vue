@@ -3,7 +3,10 @@
     <article class="logincard">
       <img src="@/assets/avatar.png" alt="Avatar" class="avatar margin-b-15">
       <component :is="activeComp"></component>
-      <p class="margin-b-15 text-black">Don't have an account? <button @click="toggleValue = !toggleValue" class="link">Sign up</button></p>
+      <!-- <p class="margin-b-15 text-black">Don't have an account? <button @click="toggleValue = !toggleValue" class="link">Sign up</button></p> -->
+      <p class="margin-b-15 text-black">{{ Text }}
+        <button @click="toggleValue = !toggleValue" class="link"> {{ buttonText }}</button>
+      </p>
     </article>
   </body>
 </template>
@@ -17,15 +20,17 @@ export default {
   },
   computed: {
     activeComp() {
-      if (this.toggleValue) {
-        return 'comp-one'
-      }
-      else {
-        return 'comp-two'
+      return this.toggleValue ? 'comp-one' : 'comp-two';
+      },
+      Text() {
+        return this.toggleValue ? "Don't have an account? " : "Already have an account? "
+      },
+      buttonText() {
+        return this.toggleValue ? "Sign up" : "Log in"
       }
     }
   }
-}
+
 </script>
 
 <style scoped lang="scss">
@@ -34,17 +39,17 @@ body {
   padding: 60px 50px;
   background-image: url("../assets/Background.png");
   background-position: center;
-  background-repeat: repeat;
-  background-size: fill;
-  opacity: .5;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: auto;
 }
 
 .logincard {
   margin: auto;
   padding: 60px 50px;
   width: 500px;
-  height: fit-content;
-  background-color: #e6e6e6;
+  height: 650px;
+  background-color: #f5f5f7;
   color: white;
 }
 
@@ -57,9 +62,9 @@ body {
 
 .link {
   border: none;
-  background-color: #D9D9D9;
+  background-color: #f5f5f7;
   font-weight: bold;
-  color: #40bd9b;
+  color: #006241;
   cursor: pointer;
 }
 

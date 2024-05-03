@@ -30,7 +30,7 @@ const register = () => {
     fetch(`${baseURL}/api/user/register`, requestOptions).then((response) => {
       if (response.ok) {
         alert("Registered successfully!");
-        router.push({ path: "/login" });
+        router.push("/" );
       } else {
         alert("401:Invalid email or password");
       }

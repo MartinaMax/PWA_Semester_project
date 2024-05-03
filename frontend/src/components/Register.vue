@@ -4,9 +4,9 @@
     <input class="form-input" type="name" placeholder="Full name" name="name" v-model="input.name" required>
     <input class="form-input" type="email" placeholder="Email" name="email" v-model="input.email" required>
     <div class="inline-block">
-      <input class="form-input margin-b-15" v-if="showPassword" type="text" placeholder="Password" name="password"
+      <input class="form-input margin-b-15 password-input" v-if="showPassword" type="text" placeholder="Password" name="password"
         v-model="input.password" required>
-      <input class="form-input margin-b-15" v-else type="password" placeholder="Password" name="password"
+      <input class="form-input margin-b-15 password-input" v-else type="password" placeholder="Password" name="password"
         v-model="input.password" required>
       <div class="control">
         <button @click="toggleShow" class="button-icon">
@@ -53,6 +53,7 @@ export default {
 .form {
   display: flex;
   flex-direction: column;
+  width: 400px;
 }
 
 .form-input {
@@ -61,7 +62,11 @@ export default {
   margin-bottom: 15px;
   text-align: center;
   border: none;
-  background-color: white;
+  background-color: #d4e9e2;
+}
+
+.password-input {
+  margin-right: -40px;
 }
 
 .button-login {
@@ -70,8 +75,15 @@ export default {
   height: 40px;
   text-align: center;
   color: black;
-  background-color: white;
+  background-color: #d4e9e2;
   border: none;
+  cursor: pointer;
+}
+
+.button-login:hover {
+  background-color: #006241;
+  transition: 0.5s;
+  color: white;
 }
 
 .title {
@@ -93,6 +105,7 @@ export default {
 .icon {
   margin: 0;
   border: none;
+  cursor: pointer;
 }
 
 .button-icon {

@@ -1,10 +1,10 @@
 <template>
   <nav class="sidenav">
-    <img src="" alt="Logo image" class="margin-b-50">
+    <img src="@/assets/logo.png" alt="Logo image" class="margin-b-50">
     <router-link to="/dashboard"><h3>Dashboard</h3></router-link>
     <div class="account-section">
-      <img src="../assets/avatar.png" alt="Profile photo" class="avatar-img margin-b-15">
-      <h3 class="margin-b-30">Account</h3>
+      <img src="../assets/avatar.png" alt="Profile photo" class="avatar-img">
+      <h5 class="margin-b-30 green">Account</h5>
       <button  @click="LogOUT()">Log out</button>
     </div>
   </nav>
@@ -17,7 +17,7 @@ import logout from "../modules/logout"
 
     setup() {
       const { LogOUT } = logout()
-      return { LogOUT};
+      return { LogOUT };
     }
   }
 </script>
@@ -26,9 +26,9 @@ import logout from "../modules/logout"
   .sidenav {
     text-align: center;
     width: 250px;
-    padding: 50px 30px;
-    background-color: black;
-    color: white;
+    padding: 30px 15px;
+    background-color: #1e3932;
+    color: black;
   }
 
   .sidenav > a {
@@ -41,14 +41,33 @@ import logout from "../modules/logout"
   }
 
   .avatar-img {
-    width: 50px;
+    width: 70px;
+    margin-bottom: 10px;
   }
 
   button{
+    height: 30px;
+    width: auto;
     font-size: 18px;
-    background-color: white;
-    padding: 15px 50px;
+    background-color: #d4e9e2;
+    color: #1e3932;
+    padding: 5px 50px;
     border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #006241;
+    transition: 0.5s;
+    color: white;
+  }
+
+  .green {
+    color: #d4e9e2;
+  }
+
+  .m-t-40{
+    margin-top: 40px;
   }
 
 </style>

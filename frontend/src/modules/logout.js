@@ -10,7 +10,7 @@ const logout = () => {
   const LogOUT = () => {
     deleteToken();
 
-    router.push('/login');
+    router.push('/');
   };
 
   return {
