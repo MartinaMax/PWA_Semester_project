@@ -7,11 +7,11 @@ const app = express();
 
 // Handles CORS
 app.use(function(req, res, next) {
-    req.header("Access-Control-Allow-Origin", "*");
-    req.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,PUT,DELETE");
-    req.header("Access-Control-Allow-Headers", "auth-token, Origin, X-Requested-Width, Content-Type, Accept");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,PUT,POST,DELETE");
+    res.header("Access-Control-Allow-Headers", "auth-token, Origin, X-Requested-With, Content-Type, Accept");
     next();
-})
+});
 
 // Importing routes
 const projectRoutes = require("./routes/project");
