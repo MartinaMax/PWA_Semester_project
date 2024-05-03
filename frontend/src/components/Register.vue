@@ -3,8 +3,17 @@
   <div class="form">
     <input class="form-input" type="name" placeholder="Full name" name="name" v-model="input.name" required>
     <input class="form-input" type="email" placeholder="Email" name="email" v-model="input.email" required>
-    <input class="form-input margin-b-15" type="text" placeholder="Password" name="password" v-model="input.password"
-      required>
+    <div class="inline-block">
+      <input class="form-input margin-b-15" v-if="showPassword" type="text" placeholder="Password" name="password"
+        v-model="input.password" required>
+      <input class="form-input margin-b-15" v-else type="password" placeholder="Password" name="password"
+        v-model="input.password" required>
+      <div class="control">
+        <button @click="toggleShow" class="button-icon">
+          <img :src="showPassword ? require('../assets/Invisible.png') : require('../assets/Visible.png')" class="icon">
+        </button>
+      </div>
+    </div>
     <button @click="Register()" class="margin-b-15 button-login" type="submit">Sign up</button>
   </div>
 </template>
@@ -18,8 +27,25 @@ export default {
 
   setup() {
     const { input, Register } = register();
-    return {input, Register };
-  }
+    return { input, Register };
+  },
+
+  data() {
+    return {
+      showPassword: false,
+      password: null,
+    };
+  },
+  computed: {
+    buttonLabel() {
+      return this.showPassword ? "Hide" : "Show";
+    },
+  },
+  methods: {
+    toggleShow() {
+      this.showPassword = !this.showPassword;
+    },
+  },
 }
 </script>
 
@@ -31,6 +57,7 @@ export default {
 
 .form-input {
   height: 40px;
+  width: 100%;
   margin-bottom: 15px;
   text-align: center;
   border: none;
@@ -49,5 +76,28 @@ export default {
 
 .title {
   color: black;
+}
+
+.inline-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.control {
+  width: 30px;
+}
+
+.icon {
+  margin: 0;
+  border: none;
+}
+
+.button-icon {
+  border: none;
+  padding: 0;
+  height: 40px;
 }
 </style>

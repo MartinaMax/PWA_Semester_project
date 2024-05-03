@@ -1,18 +1,24 @@
 <template>
-  <article class="sidenav">
+  <nav class="sidenav">
     <img src="" alt="Logo image" class="margin-b-50">
     <router-link to="/dashboard"><h3>Dashboard</h3></router-link>
     <div class="account-section">
       <img src="../assets/avatar.png" alt="Profile photo" class="avatar-img margin-b-15">
       <h3 class="margin-b-30">Account</h3>
-      <button>Log out</button>
+      <button  @click="LogOUT()">Log out</button>
     </div>
-  </article>
+  </nav>
 </template>
   
 <script>
+import logout from "../modules/logout"
   export default {
     name: 'SideNav',
+
+    setup() {
+      const { LogOUT } = logout()
+      return { LogOUT};
+    }
   }
 </script>
 

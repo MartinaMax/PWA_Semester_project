@@ -30,11 +30,13 @@ export default {
 
 <style scoped lang="scss">
 body {
+  margin: 0;
   padding: 60px 50px;
   background-image: url("../assets/Background.png");
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: repeat;
+  background-size: fill;
+  opacity: .5;
 }
 
 .logincard {
@@ -42,7 +44,7 @@ body {
   padding: 60px 50px;
   width: 500px;
   height: fit-content;
-  background-color: #D9D9D9;
+  background-color: #e6e6e6;
   color: white;
 }
 

@@ -2,8 +2,17 @@
   <h3 class="margin-b-30 title">Log in</h3>
   <div class="form">
     <input class="form-input" type="email" placeholder="Email" name="email" v-model="input.email" required />
-    <input class="form-input margin-b-15" type="text" placeholder="Password" name="password" v-model="input.password"
-      required />
+    <div class="inline-block">
+      <input class="form-input margin-b-15" v-if="showPassword" type="text" placeholder="Password" name="password"
+        v-model="input.password" required />
+      <input class="form-input margin-b-15" v-else type="password" placeholder="Password" name="password"
+        v-model="input.password" required />
+      <div class="control">
+        <button @click="toggleShow" class="button-icon">
+            <img :src="showPassword ? require('../assets/Invisible.png'): require('../assets/Visible.png')" class="icon">
+        </button>
+      </div>
+    </div>
     <button @click="LogIN()" class="margin-b-15 button-login" type="submit">
       Log in
     </button>
@@ -11,7 +20,7 @@
 </template>
 
 <script>
-import login from "../modules/login"
+import login from "../modules/login";
 
 export default {
   name: "LogIn",
@@ -19,6 +28,23 @@ export default {
   setup() {
     const { input, LogIN } = login();
     return { input, LogIN };
+  },
+
+  data() {
+    return {
+      showPassword: false,
+      password: null,
+    };
+  },
+  computed: {
+    buttonLabel() {
+      return this.showPassword ? "Hide" : "Show";
+    },
+  },
+  methods: {
+    toggleShow() {
+      this.showPassword = !this.showPassword;
+    },
   },
 };
 </script>
@@ -32,6 +58,7 @@ export default {
 
 .form-input {
   height: 40px;
+  width: 100%;
   margin-bottom: 15px;
   text-align: center;
   border: none;
@@ -50,5 +77,28 @@ export default {
 
 .title {
   color: black;
+}
+
+.inline-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.control {
+  width: 30px;
+}
+
+.icon {
+  margin: 0;
+  border: none;
+}
+
+.button-icon {
+  border: none;
+  padding: 0;
+  height: 40px;
 }
 </style>
