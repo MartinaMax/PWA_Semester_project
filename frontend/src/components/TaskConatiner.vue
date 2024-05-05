@@ -1,11 +1,12 @@
 <template>
+  <div>
     <div class="taskstatus margin-b-15">
       <h3>To do</h3>
       <h3>In progress</h3>
       <h3>Done</h3>
     </div>
     <div class="task-container">
-        <div class="taskscrollcontainer">
+        <div class="task-scroll-container">
             <TaskCard/>
             <TaskCard/>
             <TaskCard/>
@@ -20,6 +21,7 @@
         <TaskCard/>
         </div>
     </div>
+  </div>
   </template>
     
   <script>
@@ -38,6 +40,7 @@
     .taskstatus {
       display: flex;
       justify-content: space-around;
+      
     }
 
     .task-container {
@@ -55,7 +58,7 @@
     .task-scroll-container::-webkit-scrollbar {
       width: thin; 
       background: transparent;
-  }
+    }
 
     .gapline {
       width: 5px;
