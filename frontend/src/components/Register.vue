@@ -88,6 +88,7 @@ export default {
 
 .title {
   color: black;
+  text-align: center;
 }
 
 .inline-block {
