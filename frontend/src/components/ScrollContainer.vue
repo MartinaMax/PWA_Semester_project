@@ -15,10 +15,15 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
     .scrollcontainer {
-        padding: 0 75px;
         width: 100%;
         overflow-y: auto;
+        height: 78%;
+    }
+
+    .scrollcontainer::-webkit-scrollbar {
+        width: thin; 
+        background: transparent;
     }
 </style>
