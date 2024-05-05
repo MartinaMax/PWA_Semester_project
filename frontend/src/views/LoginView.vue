@@ -56,7 +56,7 @@ body {
 
 .avatar {
   margin: auto;
-  justify-self: center;
+  align-self: center;
   margin: 15px 30px;
   width: 150px;
 }
