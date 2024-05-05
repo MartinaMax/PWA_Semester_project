@@ -1,7 +1,9 @@
 <template>
   <body>
     <article class="logincard">
-      <img src="@/assets/avatar.png" alt="Avatar" class="avatar margin-b-15">
+      <div class="center">
+        <img src="@/assets/avatar.png" alt="Avatar" class="avatar margin-b-15">
+      </div>
       <component :is="activeComp"></component>
       <!-- <p class="margin-b-15 text-black">Don't have an account? <button @click="toggleValue = !toggleValue" class="link">Sign up</button></p> -->
       <p class="margin-b-15 text-black">{{ Text }}
@@ -21,15 +23,15 @@ export default {
   computed: {
     activeComp() {
       return this.toggleValue ? 'comp-one' : 'comp-two';
-      },
-      Text() {
-        return this.toggleValue ? "Don't have an account? " : "Already have an account? "
-      },
-      buttonText() {
-        return this.toggleValue ? "Sign up" : "Log in"
-      }
+    },
+    Text() {
+      return this.toggleValue ? "Don't have an account? " : "Already have an account? "
+    },
+    buttonText() {
+      return this.toggleValue ? "Sign up" : "Log in"
     }
   }
+}
 
 </script>
 
@@ -53,10 +55,13 @@ body {
   color: white;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+}
 
 .avatar {
-  margin: auto;
-  align-self: center;
+  justify-self: center;
   margin: 15px 30px;
   width: 150px;
 }
@@ -71,5 +76,6 @@ body {
 
 .text-black {
   color: black;
+  text-align: center;
 }
 </style>
