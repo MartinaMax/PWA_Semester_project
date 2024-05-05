@@ -25,7 +25,7 @@
     width: 300px;
     height: 250px;
     padding: 15px;
-    background-color:rgb(193, 193, 193);
+    background-color:var(--light-grey);
   }
 
   .taskcard > div {
@@ -46,10 +46,7 @@
   }
 
   .taskcard-owner {
-    position: relative;
-    bottom: 0;
-    right: 0;
-    color: grey;
+    color: var(--dark-green);
   }
 
 </style>

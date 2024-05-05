@@ -31,7 +31,7 @@
 
   button{
     border: none;
-    background-color: red;
+    background-color: var(--light-green);
     font-size: 18px;
     width: 180px;
     height: 40px;

@@ -12,7 +12,7 @@
       <p class="margin-b-15">Date</p>
       <div class="flex">
         <p>Status</p>
-        <p>Owner name</p>
+        <p class="project-owner">Owner name</p>
       </div>
       </router-link>
     </article>
@@ -27,8 +27,7 @@
 <style scoped>
   .projectcard {
     padding: 30px 50px;
-    background-color: aqua;
-    color: black;
+    background-color: var(--light-grey);
   }
 
   .projectcard > div {
@@ -55,5 +54,9 @@
   .flex{
     display: flex;
     justify-content: space-between;
+  }
+
+  .project-owner {
+    color: var(--dark-green);
   }
 </style>
