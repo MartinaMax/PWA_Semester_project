@@ -8,6 +8,12 @@
 </template>
 
 <style lang="scss">
+:root {
+  --dark-green: #1E3932;
+  --forest-green: #006241;
+  --light-green: #DFF9BA;
+  --lime-green: #C5FF73;
+}
 * {
   box-sizing: border-box;
   margin: 0;

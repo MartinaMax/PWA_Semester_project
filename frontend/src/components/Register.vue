@@ -62,7 +62,7 @@ export default {
   margin-bottom: 15px;
   text-align: center;
   border: none;
-  background-color: #d4e9e2;
+  background-color: white;
 }
 
 .password-input {
@@ -75,19 +75,18 @@ export default {
   height: 40px;
   text-align: center;
   color: black;
-  background-color: #d4e9e2;
+  background-color: var(--light-green);
   border: none;
   cursor: pointer;
 }
 
 .button-login:hover {
-  background-color: #006241;
+  font-weight: bold;
   transition: 0.5s;
-  color: white;
 }
 
 .title {
-  color: black;
+  color: white;
   text-align: center;
 }
 

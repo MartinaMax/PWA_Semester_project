@@ -3,8 +3,10 @@
     <img src="@/assets/logo.png" alt="Logo image" class="margin-b-50">
     <router-link to="/dashboard"><h3>Dashboard</h3></router-link>
     <div class="account-section">
-      <img src="../assets/avatar.png" alt="Profile photo" class="avatar-img">
-      <h5 class="margin-b-30 green">Account</h5>
+      <div class="center">
+        <img src="../assets/avatar.png" alt="Profile photo" class="avatar-img">
+      </div>
+      <h5 class="margin-b-30">Account</h5>
       <button  @click="LogOUT()">Log out</button>
     </div>
   </nav>
@@ -26,45 +28,51 @@ import logout from "../modules/logout"
   .sidenav {
     text-align: center;
     width: 250px;
-    padding: 30px 15px;
-    background-color: #1e3932;
-    color: black;
-  }
-
-  .sidenav > a {
+    padding: 50px 15px;
+    background-color: var(--dark-green);
     color: white;
   }
 
-  .account-section {
-    position: absolute;
-    bottom: 30px;
+  .sidenav > a {
+    color: var(--lime-green);
   }
 
+  .account-section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    position: absolute;
+    bottom: 50px;
+    width: 191px;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 15px;
+  }
+  
   .avatar-img {
-    width: 70px;
-    margin-bottom: 10px;
+    width: 100px;
   }
 
   button{
-    height: 30px;
+    height: 40px;
     width: auto;
     font-size: 18px;
-    background-color: #d4e9e2;
-    color: #1e3932;
-    padding: 5px 50px;
+    background-color: var(--light-green);
+    color: black;
     border: none;
     cursor: pointer;
   }
 
   button:hover {
-    background-color: #006241;
+    font-weight: bold;
     transition: 0.5s;
-    color: white;
   }
 
-  .green {
-    color: #d4e9e2;
-  }
 
   .m-t-40{
     margin-top: 40px;

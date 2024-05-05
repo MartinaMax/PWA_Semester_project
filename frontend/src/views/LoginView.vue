@@ -6,7 +6,7 @@
       </div>
       <component :is="activeComp"></component>
       <!-- <p class="margin-b-15 text-black">Don't have an account? <button @click="toggleValue = !toggleValue" class="link">Sign up</button></p> -->
-      <p class="margin-b-15 text-black">{{ Text }}
+      <p class="margin-b-15 text-white">{{ Text }}
         <button @click="toggleValue = !toggleValue" class="link"> {{ buttonText }}</button>
       </p>
     </article>
@@ -51,31 +51,31 @@ body {
   padding: 60px 50px;
   width: 500px;
   height: 650px;
-  background-color: #f5f5f7;
+  background-color: var(--dark-green);
   color: white;
 }
 
 .center {
   display: flex;
   justify-content: center;
+  padding: 0;
+  margin-bottom: 15px;
 }
 
 .avatar {
-  justify-self: center;
-  margin: 15px 30px;
   width: 150px;
 }
 
 .link {
   border: none;
-  background-color: #f5f5f7;
+  background-color: var(--dark-green);
   font-weight: bold;
-  color: #006241;
+  color: var(--lime-green);
   cursor: pointer;
 }
 
-.text-black {
-  color: black;
+.text-white {
+  color: white;
   text-align: center;
 }
 </style>
