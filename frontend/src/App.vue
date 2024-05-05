@@ -19,19 +19,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  overflow: auto;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+a {
+  text-decoration: none;
 }
 
 h1,
@@ -68,6 +60,10 @@ h4 {
 
 p {
   font-size: 18px;
+}
+
+.margin-b-8 {
+  margin-bottom: 8px;
 }
 
 .margin-b-15 {
