@@ -36,7 +36,7 @@ export default {
 <style scoped lang="scss">
 body {
   margin: 0;
-  padding: 60px 50px;
+  padding: 45px 30px;
   background-image: url("../assets/Background.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -56,6 +56,7 @@ body {
 
 .avatar {
   margin: auto;
+  justify-self: center;
   margin: 15px 30px;
   width: 150px;
 }
