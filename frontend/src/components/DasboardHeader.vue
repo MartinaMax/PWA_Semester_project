@@ -25,7 +25,7 @@
     background-color: red;
     font-size: 18px;
     width: 180px;
-    padding: 15px 0;
+    height: 40px;
     cursor: pointer;
   }
 </style>
