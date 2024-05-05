@@ -12,11 +12,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Montserrat", sans-serif;
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -43,6 +42,12 @@ h4,
 p {
   padding: 0;
   margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
   font-family: "Barlow Condensed", sans-serif;
 }
 
