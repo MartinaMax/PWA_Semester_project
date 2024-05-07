@@ -1,9 +1,11 @@
 <template>
-  <article class="taskcard margin-b-15" @click='displayComponent'>
+  <article class="taskcard margin-b-15" @click="openModal()">
+    <TaskModal :is-open="modalOpen" @close="modalOpen = false"/>
     <div>
       <h4 class="margin-b-15">Task name</h4>
       <div class="icon">
         <button><img src="../assets/pen-icon.svg" alt=""></button>
+        <!-- <TaskEditModal :is-open="modalOpen" @close="modalOpen = false"/> -->
         <button><img src="../assets/bin-icon.svg" alt=""></button>
       </div>
     </div>
@@ -14,9 +16,25 @@
 </template>
   
 <script>
+  import TaskModal from '../components/TaskModal.vue'
+  // import TaskEditModal from '../components/TaskEditModal'
   
   export default {
-    name: 'TaskCard'
+    name: 'TaskCard',
+    components: {
+      TaskModal,
+      //TaskEditModal
+    },
+    data() {
+    return {
+      modalOpen: false
+    };
+  },
+  methods: {
+    openModal() {
+      this.modalOpen = true;
+    }
+  }
   }
 </script>
   

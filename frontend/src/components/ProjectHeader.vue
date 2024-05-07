@@ -4,14 +4,30 @@
       <h1 class="margin-b-15">Project name</h1>
       <div class="task margin-b-50">
         <p class="project-collab">Collaborators</p>
-        <button @click='displayComponent'>New task</button>
+       <button @click="openModal()">New task</button>
+      <NewTaskModal  :is-open="modalOpen" @close="modalOpen = false"/>
       </div>
     </div>
 </template>
 
 <script>
+  import NewTaskModal from '../components/NewTaskModal.vue'
+
   export default {
     name: 'ProjectHeader',
+    components: {
+    NewTaskModal
+  },
+  data() {
+  return {
+    modalOpen: false
+  };
+},
+methods: {
+  openModal() {
+    this.modalOpen = true;
+  }
+}
   }
 </script>
 
