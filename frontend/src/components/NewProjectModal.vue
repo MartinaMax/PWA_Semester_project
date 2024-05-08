@@ -1,11 +1,12 @@
 <template>
-  <div class="modal-background" v-if="isOpen" @click.self="closeModal()">
-    <div class="editmodal">
-      <div class="close-button-container"><img @click="closeModal()" src="../assets/close-icon.svg" alt="" class="close-icon"> </div>
-      <h3 class="margin-b-30 textcenter">Edit task</h3>
+<div class="modal-background" v-if="isOpen" @click.self="closeModal()">
+    <div  class="editmodal">
+      <div class="close-button-container"><img @click="closeModal()" src="../assets/close-icon.svg" alt=""> </div>
+      <h3 class="margin-b-30 textcenter">New project</h3>
+      <!-- Form -->
       <form action="">
         <div class="flex">
-          <p class="margin-b-15">Task name</p>
+          <p class="margin-b-15">Project name</p>
           <input type="text" name="title" required>
         </div>
         <p class="margin-b-8">Description</p>
@@ -18,6 +19,7 @@
           <p>End date</p>
           <input type="date" name="endDate" required>
         </div>
+        <!-- Status dropdown -->
         <div class="flex margin-b-15">
           <p>Status</p>
           <div class="dropdown-container">
@@ -29,7 +31,8 @@
             </ul>
           </div>
         </div>
-        <div class="margin-b-30">
+        <div>
+        <!-- Collaborators checkbox -->
           <p class="margin-b-8">Collaborators</p>
           <div class="collaborators">
             <div v-for="(collaborator, index) in collaborators" :key="index">
@@ -39,59 +42,60 @@
           </div>
         </div>
       </form>
+      <!-- Edit button -->
       <div class="edit-button-container">
-        <button class="edit-button" type="submit" @click="closeModal()">Edit</button>
+        <button class="edit-button" type="submit" @click="closeModal()">Create</button>
       </div>
     </div>
-  </div>
+  </div>  
 </template>
   
 <script>
-  import { defineComponent } from 'vue';
+ import { defineComponent } from 'vue';
 
 
-export default defineComponent({
-  name: 'TaskEditModal',
+  export default defineComponent({
+  name: 'NewProjectModal',
   props: {
-isOpen: {
-  type: Boolean,
-  default: false
-}
+    isOpen: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props, { emit }) {
-  const closeModal = () => {
-    emit('close');
-  };
+    const closeModal = () => {
+      emit('close');
+    };
 
-  return {
-    closeModal
-  };
+    return {
+      closeModal
+    };
   },
   data() {
-  return {
-    isDropdownOpen: false,
-    selectedOption: '',
-    dropdownOptions: ['Option 1', 'Option 2', 'Option 3']
-  };
+    return {
+      isDropdownOpen: false,
+      selectedOption: '',
+      dropdownOptions: ['Option 1', 'Option 2', 'Option 3']
+    };
   },
   methods: {
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  },
-  selectOption(option) {
-    this.selectedOption = option;
-    this.isDropdownOpen = false; 
-    this.$emit('option-selected', option);
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    },
+    selectOption(option) {
+      this.selectedOption = option;
+      this.isDropdownOpen = false; 
+      this.$emit('option-selected', option);
     }
   }
 });
-  </script>
+ 
+</script>
   
-  <style scoped>
+<style scoped>
   .modal-background {
     display: flex;
     position: fixed;
-    z-index: 3;
     left: 0;
     top: 0;
     width: 100%;
@@ -101,7 +105,7 @@ isOpen: {
     justify-content: center;
     padding: 50px 0;
   }
-
+  
     .editmodal {
       width: 750px;
       padding: 50px 50px;
@@ -165,18 +169,16 @@ isOpen: {
     }
 
     .edit-button-container {
-      display: flex;
-      justify-content: center;
-    }
+        display: flex;
+        justify-content: center;
+      }
 
     .edit-button {
-      border: none;
-      background-color: var(--light-green);
-      font-size: 18px;
-      width: 180px;
-      height: 40px;
-      cursor: pointer;
-      
-  }
-  </style>
-  
+        border: none;
+        background-color: var(--light-green);
+        font-size: 18px;
+        width: 180px;
+        height: 40px;
+        cursor: pointer;
+    }
+</style>
