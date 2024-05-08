@@ -1,45 +1,28 @@
 const router = require("express").Router();
+const { ref } = require("joi");
 const project = require("../models/project");
 const { tokenVerification } = require("../validation");
 
 // GET,POST,UPDATE & DELETE Projects (Only author of the project can)
 
-// GET - Fetch all project based on the
-router.get("/:author&collaborators", tokenVerification, (req, res) => {
-  project
-    .find({
+// GET - Fetch all project based on if you are a user or collaborator
+router.get("/:id",  async (req, res) => {
+  try {
+    const userID = req.params.id;
+
+    const projects = await project.find({
       $or: [
-        {
-          author: req.params.author,
-        },
-        { collaborators: req.params.collaborators },
-      ],
-    })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send(JSON.stringify(err));
+            { author: userID },
+            { collaborators: userID}
+          ]
     });
+
+     res.send(projects);
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
-
-// router.get("/:id", tokenVerification, async (req, res) => {
-//     try {
-//         const userID = req.user.id;
-
-//         const project = await project.find({
-//             $or: [
-//                 { author: userID },
-//                 { collaborators: userID}
-//             ]
-//         });
-
-//         res.send(project);
-//     } catch (error) {
-//         console.error('Error fetching projects:', error);
-//         res.status(500).json({ error: 'Internal server error' });
-//     }
-// });
 
 // POST - Create a new project in the database (tokenVerification)
 router.post("/", tokenVerification, (req, res) => {
