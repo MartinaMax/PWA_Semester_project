@@ -6,18 +6,18 @@
       <h3>Done</h3>
     </div>
     <div class="task-container">
-        <div class="task-scroll-container">
+        <div class="task-scroll-container" ref="toDo">
             <TaskCard/>
             <TaskCard/>
             <TaskCard/>
             <TaskCard/>
         </div>
         <div class="gapline"></div>
-        <div class="task-scroll-container">
+        <div class="task-scroll-container" ref="inProgress">
           <TaskCard/>
         </div>
         <div class="gapline"></div>
-        <div class="task-scroll-container">
+        <div class="task-scroll-container" :id="Done">
         <TaskCard/>
         </div>
     </div>

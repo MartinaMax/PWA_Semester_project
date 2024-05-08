@@ -38,6 +38,30 @@ router.get("/:state", tokenVerification, (req, res) => {
     });
 });
 
+//GET /api/project/task?project
+router.get("/:project", tokenVerification, (req, res) => {
+  const projectID = req.params.project
+
+  task.find( projectID )
+    .then(data => {res.send(data); })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+});
+
+//GET /api/project/task?project&state
+router.get("/:project&state", tokenVerification, (req, res) => {
+  const projectID = req.params.project;
+  const state = req.params.state;
+
+  task.find( projectID, state )
+    .then(data => {res.send(data); })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+});
+
+
 //POST /api/project/task [auth]
 router.post("/", tokenVerification, (req, res) => {
 // router.post("/", (req, res) => {
