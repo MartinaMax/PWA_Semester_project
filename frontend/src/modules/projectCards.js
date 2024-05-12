@@ -70,7 +70,7 @@ const getAllProjects = () => {
                         status: project.status,
                         author: getUserById(project.author) || "Unknown"
                     }));
-                    projectLoaded.value = true; // Set projectLoaded to true when there are multiple projects
+                    projectLoaded.value = true; 
                 }
             } else {
                 console.error("Invalid data format received from the server");
