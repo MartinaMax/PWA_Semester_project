@@ -16,7 +16,8 @@ app.use(function(req, res, next) {
 // Importing routes
 const projectRoutes = require("./routes/project");
 const taskRoutes = require("./routes/task");
-const authRoutes = require("./routes/auth")
+const authRoutes = require("./routes/auth");
+const userRoute = require("./routes/user");
 
 require("dotenv-flow").config();
 
@@ -46,6 +47,7 @@ app.get("/api/welcome", (req, res) => {
 app.use("/api/project", projectRoutes);
 app.use("/api/task", taskRoutes);
 app.use("/api/user", authRoutes);
+app.use("/api/users", userRoute)
 
 const PORT = process.env.PORT || 4000;
 
