@@ -32,6 +32,7 @@
 <script>
 import ProjectEditModal from '../components/ProjectEditModal.vue';
 import getAllProjects from '../modules/projectCards.js';
+import { ref, onMounted } from "vue";
 
 export default {
   name: 'ProjectCard',
@@ -40,9 +41,17 @@ export default {
   },
   setup() {
 
-    const { project, projects, modalOpen, openModal, projectLoaded } = getAllProjects();
+    const { project, projects, projectLoaded, getProjectbyID } = getAllProjects();
 
-    return { project, projects, modalOpen, openModal, projectLoaded };
+    const modalOpen = ref(false);
+    const openModal = () => {
+      modalOpen.value = true;
+    };
+    onMounted(() => {
+      getProjectbyID();
+    });
+
+    return { project, projects, modalOpen, openModal, projectLoaded, getProjectbyID };
   }
 };
 </script>
