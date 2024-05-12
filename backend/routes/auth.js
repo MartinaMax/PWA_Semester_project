@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const { registerValidation, loginValidation } = require('../validation');
+const { tokenVerification } = require('../validation');
 
 // POST - Registration of a user
 router.post("/register", async (req, res) => {
@@ -78,5 +79,16 @@ router.post("/login", async (req, res) => {
         })
 });
 
+
+router.get("/:userID", tokenVerification,  (req, res) => {
+   
+    user.findById(req.params.userID)
+    .then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        res.status(500).send({ message: err.message });
+    });
+});
 
 module.exports = router;
