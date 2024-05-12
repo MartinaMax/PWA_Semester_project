@@ -52,7 +52,12 @@ export default {
         const response = await fetch(`${baseURL}/api/project/` + userId);
         
         const data = await response.json();
-        Object.assign(project.value, data);
+        project.value.title = data.title;
+    project.value.description = data.description;
+    project.value.startDate = data.startDate;
+    project.value.endDate = data.endDate;
+    project.value.status = data.status;
+    project.value.author = data.author;
       } catch (error) {
         console.error(error);
       }

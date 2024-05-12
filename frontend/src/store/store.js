@@ -2,11 +2,12 @@ import { createStore } from 'vuex';
 
 const store = createStore({
   state: {
-    userId: null
+    userId: localStorage.getItem('userId') || null
   },
   mutations: {
     setUserId(state, userId) {
       state.userId = userId;
+      localStorage.setItem('userId', userId)
     }
   },
   actions: {
