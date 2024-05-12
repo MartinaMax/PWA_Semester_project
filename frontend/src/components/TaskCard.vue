@@ -1,41 +1,50 @@
 <template>
-  <article class="taskcard margin-b-15" @click="openModal()">
+
+  <div>
     <TaskModal :is-open="modalOpen" @close="modalOpen = false"/>
-    <div>
+    <TaskEditModal :is-modal-open="editmodalOpen" @close="editmodalOpen = false"/>
+  <article class="taskcard margin-b-15" @click="openModal()">
+    <div class="spacebetween">
       <h4 class="margin-b-15">Task name</h4>
       <div class="icon">
-        <button><img src="../assets/pen-icon.svg" alt=""></button>
-        <!-- <TaskEditModal :is-open="modalOpen" @close="modalOpen = false"/> -->
+        <button @click.stop="openEditModal()"><img src="../assets/pen-icon.svg" alt=""></button>
         <button><img src="../assets/bin-icon.svg" alt=""></button>
       </div>
     </div>
     <p class="margin-b-15">LOrem ipsum</p>
     <p class="margin-b-15">Date</p>
-    <p class="taskcard-owner">Owner name</p>
+    <div class="taskcard-owner"><p>Owner name</p></div>
   </article>
+   
+</div>
 </template>
   
 <script>
   import TaskModal from '../components/TaskModal.vue'
-  // import TaskEditModal from '../components/TaskEditModal'
-  
-  export default {
-    name: 'TaskCard',
-    components: {
-      TaskModal,
-      //TaskEditModal
-    },
-    data() {
+import TaskEditModal from '../components/TaskEditModal'
+
+export default {
+  name: 'TaskCard',
+  components: {
+    TaskModal,
+    TaskEditModal
+  },
+  data() {
     return {
-      modalOpen: false
+      modalOpen: false,
+      editmodalOpen: false 
     };
   },
   methods: {
     openModal() {
       this.modalOpen = true;
+    },
+    openEditModal() {
+      this.editmodalOpen = true;
     }
   }
-  }
+}
+
 </script>
   
 <style scoped>
@@ -44,9 +53,10 @@
     height: 250px;
     padding: 15px;
     background-color:var(--light-grey);
+    cursor: pointer;
   }
 
-  .taskcard > div {
+  .spacebetween {
     display: flex;
     justify-content: space-between;
   }
@@ -56,6 +66,10 @@
     grid-template-columns: 1fr 1fr;
     column-gap: 15px;
   }
+
+  .icon > button {
+    cursor: pointer;
+  }
   
   button {
     background: none;
@@ -64,8 +78,9 @@
   }
 
   .taskcard-owner {
+    display: flex;
+    justify-content: end;
     color: var(--dark-green);
   }
-
 </style>
   

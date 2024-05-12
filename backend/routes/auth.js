@@ -69,10 +69,12 @@ router.post("/login", async (req, res) => {
        {expiresIn: process.env.JWT_EXPIRES_IN},
     );
 
+    const userid = users.id
+
         // Attaching the token to header
-        res.header("auth-token", token).json({
+        res.header("auth-token", token, userid).json({
             error: null,
-            data: { token }
+            data: { token, userid }
         })
 });
 

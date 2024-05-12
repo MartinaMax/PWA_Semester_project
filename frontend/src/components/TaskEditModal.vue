@@ -1,7 +1,7 @@
 <template>
-  <div class="modal-background" v-if="isOpen" @click.self="closeModal()">
+  <div class="modal-background" v-if="isModalOpen" @click.self="closeEditModal()">
     <div class="editmodal">
-      <div class="close-button-container"><img @click="closeModal()" src="../assets/close-icon.svg" alt="" class="close-icon"> </div>
+      <div class="close-button-container"><img @click="closeEditModal()" src="../assets/close-icon.svg" alt="" class="close-icon"> </div>
       <h3 class="margin-b-30 textcenter">Edit task</h3>
       <form action="">
         <div class="flex">
@@ -40,7 +40,7 @@
         </div>
       </form>
       <div class="edit-button-container">
-        <button class="edit-button" type="submit" @click="closeModal()">Edit</button>
+        <button class="edit-button" type="submit" @click="closeEditModal()">Edit</button>
       </div>
     </div>
   </div>
@@ -53,18 +53,18 @@
 export default defineComponent({
   name: 'TaskEditModal',
   props: {
-isOpen: {
+  isModalOpen: {
   type: Boolean,
   default: false
 }
   },
   setup(props, { emit }) {
-  const closeModal = () => {
+  const closeEditModal = () => {
     emit('close');
   };
 
   return {
-    closeModal
+    closeEditModal
   };
   },
   data() {
@@ -91,7 +91,7 @@ isOpen: {
   .modal-background {
     display: flex;
     position: fixed;
-    z-index: 3;
+    z-index: 4;
     left: 0;
     top: 0;
     width: 100%;
