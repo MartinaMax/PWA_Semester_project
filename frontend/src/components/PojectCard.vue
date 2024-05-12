@@ -1,6 +1,6 @@
 <template>
-  <article v-if="projectLoaded" class="projectcard margin-b-30">
-    <div>
+  <article  v-for="project in projects" :key="project.title" class="projectcard margin-b-30">
+    <div v-if="projectLoaded">
       <router-link to="/project">
         <h3 class="margin-b-15">{{ project.title }}</h3>
       </router-link>

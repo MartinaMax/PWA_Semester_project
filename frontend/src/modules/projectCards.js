@@ -17,8 +17,9 @@ const getAllProjects = () => {
   });
 
   const projectLoaded = ref(false);
-
   const userId = store.getters.getUserId;
+  const projects = ref([]);
+  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -30,7 +31,7 @@ const getAllProjects = () => {
 
   const getUserById = async (userId) => {
     try {
-      const response = await fetch(`${baseURL}/api/user/${userId}`);
+      const response = await fetch(`${baseURL}/api/users/` + userId);
       const userData = await response.json();
       return userData.name;
     } catch (error) {
@@ -43,17 +44,17 @@ const getAllProjects = () => {
     try {
       const response = await fetch(`${baseURL}/api/project/` + userId);
       const data = await response.json();
-      if (data && data.length > 0) {
-        const firstProject = data[0];
-        project.value.title = firstProject.title;
-        project.value.description = firstProject.description;
-        project.value.startDate = formatDate(firstProject.startDate);
-        project.value.endDate = formatDate(firstProject.endDate);
-        project.value.status = firstProject.status;
-        const authorName = await getUserById(firstProject.author);
-        project.value.author = authorName || "Unknown";
-        projectLoaded.value = true;
-      }
+      projects.value = Array.isArray(data)
+      ? data.map((project) => ({
+          title: project.title,
+          description: project.description,
+          startDate: formatDate(project.startDate),
+          endDate: formatDate(project.endDate),
+          status: project.status,
+          author: getUserById(project.author) || "Unknown"
+        }))
+      : [];
+      projectLoaded.value = true;
     } catch (error) {
       console.error(error);
     }

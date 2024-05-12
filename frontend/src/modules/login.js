@@ -30,13 +30,10 @@ const login = () => {
     fetch(`${baseURL}/api/user/login`, requestOptions).then(async (response) => {
       if (response.ok) {
         const data = await response.json();
-        // console.log("Response data:", data);
         const userId = data.data.userid;
-        // console.log("User ID:", userId);
         store.commit('setUserId', userId);
         
         localStorage.setItem('userId', userId);
-        console.log("User ID stored in Vuex:", store.getters.getUserId);
         router.push({ path: '/dashboard'});
       } else {
         alert("401:Invalid email or password");
