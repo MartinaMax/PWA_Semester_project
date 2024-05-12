@@ -1,5 +1,6 @@
 import { ref } from "vue"
 import { useRouter } from 'vue-router'
+import store from '../store/store';
 
 const baseURL = `https://pwa-semester-project.onrender.com`;
 
@@ -26,8 +27,11 @@ const login = () => {
       }),
     };
 
-    fetch(`${baseURL}/api/user/login`, requestOptions).then((response) => {
+    fetch(`${baseURL}/api/user/login`, requestOptions).then(async (response) => {
       if (response.ok) {
+        const data = await response.json();
+        const userId = data.userid;
+        store.dispatch('setUserId', userId);
         router.push({ path: '/dashboard'});
       } else {
         alert("401:Invalid email or password");

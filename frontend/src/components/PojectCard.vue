@@ -1,7 +1,7 @@
 <template>
-    <article class="projectcard margin-b-30" >
+    <article class="projectcard margin-b-30">
       <div>
-        <router-link to="/project"><h3 class="margin-b-15">Project name</h3></router-link>
+        <router-link to="/project"><h3 class="margin-b-15" >{{  project.title }}</h3></router-link>
         <div class="icon">
           <button @click="openModal()"><img src="../assets/pen-icon.svg" alt=""></button>
           <ProjectEditModal  :is-open="modalOpen" @close="modalOpen = false"/>
@@ -9,38 +9,68 @@
         </div>
       </div>
     <router-link to="/project">
-      <p class="margin-b-15">LOrem ipsum</p>
-      <p class="margin-b-15">Date</p>
+      <p class="margin-b-15">{{  project.description }}</p>
+      <p class="margin-b-15">{{  project.startDate }}</p>
+      <p class="margin-b-15">{{  project.endDate }}</p>
       <div class="flex">
-        <p>Status</p>
-        <p class="project-owner">Owner name</p>
+        <p>{{  project.status }}</p>
+        <p class="project-owner">{{  project.author }}</p>
       </div>
       </router-link>
     </article>
 </template>
 
 <script>
-import ProjectEditModal from '../components/ProjectEditModal.vue'
+import { ref, onMounted } from 'vue';
+import ProjectEditModal from '../components/ProjectEditModal.vue';
+import { useStore } from 'vuex';
 
-  export default {
-    name: 'ProjectCard',
-    components: {
-      ProjectEditModal
-    },
-    data() {
-    return {
-      modalOpen: false
-    };
+const baseURL = `https://pwa-semester-project.onrender.com`;
+
+export default {
+  name: 'ProjectCard',
+  components: {
+    ProjectEditModal
   },
-  methods: {
-    openModal() {
-      this.modalOpen = true;
-    }
-  }
-  }
+  setup() {
+    const store = useStore();
 
- 
+    const modalOpen = ref(false);
+    const project = ref({
+      title: '',
+      description: '',
+      startDate: '',
+      endDate: '',
+      status: '',
+      author: ''
+    });
+
+    const getProjectbyID = async () => {
+      try {
+        const userId = store.getters.getUserId;
+        const response = await fetch(`${baseURL}/api/project/` + userId);
+        
+        console.log(userId)
+        const data = await response.json();
+        Object.assign(project.value, data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    onMounted(() => {
+        getProjectbyID();
+    });
+
+    const openModal = () => {
+      modalOpen.value = true;
+    };
+
+    return { project, modalOpen, openModal };
+  }
+};
 </script>
+
 
 <style scoped>
   .projectcard {

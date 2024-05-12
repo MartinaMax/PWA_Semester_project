@@ -6,7 +6,7 @@ const { tokenVerification } = require("../validation");
 // GET,POST,UPDATE & DELETE Projects (Only author of the project can)
 
 // GET - Fetch all project based on if you are a user or collaborator
-router.get("/:id",  async (req, res) => {
+router.get("/:id", tokenVerification, async (req, res) => {
   try {
     const userID = req.params.id;
 
