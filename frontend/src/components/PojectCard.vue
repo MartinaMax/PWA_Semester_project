@@ -23,7 +23,8 @@
 <script>
 import { ref, onMounted } from 'vue';
 import ProjectEditModal from '../components/ProjectEditModal.vue';
-import { useStore } from 'vuex';
+import store from '../store/store';
+// import { useStore } from 'vuex';
 
 const baseURL = `https://pwa-semester-project.onrender.com`;
 
@@ -33,7 +34,6 @@ export default {
     ProjectEditModal
   },
   setup() {
-    const store = useStore();
 
     const modalOpen = ref(false);
     const project = ref({
@@ -48,9 +48,9 @@ export default {
     const getProjectbyID = async () => {
       try {
         const userId = store.getters.getUserId;
+        console.log("User ID:", userId);
         const response = await fetch(`${baseURL}/api/project/` + userId);
         
-        console.log(userId)
         const data = await response.json();
         Object.assign(project.value, data);
       } catch (error) {
