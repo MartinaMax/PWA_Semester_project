@@ -20,7 +20,7 @@ const getAllProjects = () => {
   const projectLoaded = ref(false);
   const userId = store.getters.getUserId;
   const authToken = store.getters.getToken;
-  const projects = ref([]);
+  const projects = ref(null);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -61,7 +61,7 @@ const getAllProjects = () => {
         } else if (data.length === 1) {
           // User has one project
           const projectData = data[0]; // Assuming the first project in the array
-          projects.value = [{
+          project.value = {
             _id: projectData._id,
             title: projectData.title,
             description: projectData.description,
@@ -69,10 +69,11 @@ const getAllProjects = () => {
             endDate: formatDate(projectData.endDate),
             status: projectData.status,
             author: getUserById(projectData.author) || "Unknown"
-          }];
+          };
           projectLoaded.value = true; // Set projectLoaded to true when there's one project
         } else {
           // User has multiple projects
+          console.log(data);
           projects.value = data.map((project) => ({
             _id: project._id,
             title: project.title,

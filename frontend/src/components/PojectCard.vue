@@ -1,25 +1,32 @@
 <template>
-  <article v-for="project in projects" :key="project._id" class="projectcard margin-b-30">
+  <div>
     <div v-if="projectLoaded">
-      <router-link to="/project">
-        <h3 class="margin-b-15">{{ project.title }}</h3>
-      </router-link>
-      <div class="icon">
-        <button @click="openModal()"><img src="../assets/pen-icon.svg" alt=""></button>
-        <ProjectEditModal :is-open="modalOpen" @close="modalOpen = false" />
-        <button><img src="../assets/bin-icon.svg" alt=""></button>
-      </div>
+      <article v-for="project in projects" :key="project._id" class="projectcard margin-b-30">
+        <div>
+          <router-link to="/project">
+            <h3 class="margin-b-15">{{ project.title }}</h3>
+          </router-link>
+          <div class="icon">
+            <button @click="openModal()"><img src="../assets/pen-icon.svg" alt=""></button>
+            <ProjectEditModal :is-open="modalOpen" @close="modalOpen = false" />
+            <button><img src="../assets/bin-icon.svg" alt=""></button>
+          </div>
+        </div>
+        <router-link to="/project">
+          <p class="margin-b-15">{{ project.description }}</p>
+          <p class="margin-b-15">{{ project.startDate }}</p>
+          <p class="margin-b-15">{{ project.endDate }}</p>
+          <div class="flex">
+            <p>{{ project.status }}</p>
+            <p class="project-owner">{{ project.author }}</p>
+          </div>
+        </router-link>
+      </article>
     </div>
-    <router-link to="/project">
-      <p class="margin-b-15">{{ project.description }}</p>
-      <p class="margin-b-15">{{ project.startDate }}</p>
-      <p class="margin-b-15">{{ project.endDate }}</p>
-      <div class="flex">
-        <p>{{ project.status }}</p>
-        <p class="project-owner">{{ project.author }}</p>
-      </div>
-    </router-link>
-  </article>
+    <div v-else>
+      <p>Loading</p>
+    </div>
+  </div>
 </template>
 
 <script>
