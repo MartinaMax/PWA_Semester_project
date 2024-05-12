@@ -1,5 +1,5 @@
 <template>
-  <article  v-for="project in projects" :key="project.title" class="projectcard margin-b-30">
+  <article v-for="project in projects" :key="project._id" class="projectcard margin-b-30">
     <div v-if="projectLoaded">
       <router-link to="/project">
         <h3 class="margin-b-15">{{ project.title }}</h3>
@@ -33,9 +33,9 @@ export default {
   },
   setup() {
 
-    const { project, modalOpen, openModal, projectLoaded } = getAllProjects();
+    const { project, projects, modalOpen, openModal, projectLoaded } = getAllProjects();
 
-    return { project, modalOpen, openModal, projectLoaded };
+    return { project, projects, modalOpen, openModal, projectLoaded };
   }
 };
 </script>

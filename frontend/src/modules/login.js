@@ -31,9 +31,12 @@ const login = () => {
       if (response.ok) {
         const data = await response.json();
         const userId = data.data.userid;
+        const authToken = data.data.token;
         store.commit('setUserId', userId);
+        store.commit('seToken', authToken);
         
         localStorage.setItem('userId', userId);
+        localStorage.setItem('authToken', authToken);
         router.push({ path: '/dashboard'});
       } else {
         alert("401:Invalid email or password");

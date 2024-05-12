@@ -8,6 +8,7 @@ const baseURL = `https://pwa-semester-project.onrender.com`;
 const getAllProjects = () => {
   const modalOpen = ref(false);
   const project = ref({
+    _id: "",
     title: "",
     description: "",
     startDate: "",
@@ -18,8 +19,8 @@ const getAllProjects = () => {
 
   const projectLoaded = ref(false);
   const userId = store.getters.getUserId;
+  const authToken = store.getters.getToken;
   const projects = ref([]);
-  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -29,9 +30,13 @@ const getAllProjects = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const getUserById = async (userId) => {
+  const getUserById = async () => {
     try {
-      const response = await fetch(`${baseURL}/api/users/` + userId);
+      const response = await fetch(`${baseURL}/api/users/` + userId, {
+        headers: {
+            'auth-token': authToken 
+        }
+    });
       const userData = await response.json();
       return userData.name;
     } catch (error) {
@@ -42,24 +47,48 @@ const getAllProjects = () => {
 
   const getProjectbyID = async () => {
     try {
-      const response = await fetch(`${baseURL}/api/project/` + userId);
+      const response = await fetch(`${baseURL}/api/project/` + userId, {
+        headers: {
+            'auth-token': authToken 
+        }
+      });
       const data = await response.json();
-      projects.value = Array.isArray(data)
-      ? data.map((project) => ({
-          title: project.title,
-          description: project.description,
-          startDate: formatDate(project.startDate),
-          endDate: formatDate(project.endDate),
-          status: project.status,
-          author: getUserById(project.author) || "Unknown"
-        }))
-      : [];
-      projectLoaded.value = true;
+      if (Array.isArray(data)) {
+        if (data.length === 0) {
+          // User has zero projects
+          projects.value = [];
+          projectLoaded.value = true; 
+        } else if (data.length === 1) {
+          // User has one project
+          const projectData = data[0]; // Assuming the first project in the array
+          projects.value = [{
+            title: projectData.title,
+            description: projectData.description,
+            startDate: formatDate(projectData.startDate),
+            endDate: formatDate(projectData.endDate),
+            status: projectData.status,
+            author: getUserById(projectData.author) || "Unknown"
+          }];
+          projectLoaded.value = true; // Set projectLoaded to true when there's one project
+        } else {
+          // User has multiple projects
+          projects.value = data.map((project) => ({
+            title: project.title,
+            description: project.description,
+            startDate: formatDate(project.startDate),
+            endDate: formatDate(project.endDate),
+            status: project.status,
+            author: getUserById(project.author) || "Unknown"
+          }));
+          projectLoaded.value = true; // Set projectLoaded to true when there are multiple projects
+        }
+      } else {
+        console.error("Invalid data format received from the server");
+      }
     } catch (error) {
       console.error(error);
     }
   };
-
   onMounted(() => {
     getProjectbyID();
   });
