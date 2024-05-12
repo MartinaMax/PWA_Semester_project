@@ -62,6 +62,7 @@ const getAllProjects = () => {
           // User has one project
           const projectData = data[0]; // Assuming the first project in the array
           projects.value = [{
+            _id: projectData._id,
             title: projectData.title,
             description: projectData.description,
             startDate: formatDate(projectData.startDate),
@@ -73,6 +74,7 @@ const getAllProjects = () => {
         } else {
           // User has multiple projects
           projects.value = data.map((project) => ({
+            _id: project._id,
             title: project.title,
             description: project.description,
             startDate: formatDate(project.startDate),

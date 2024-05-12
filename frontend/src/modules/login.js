@@ -33,7 +33,7 @@ const login = () => {
         const userId = data.data.userid;
         const authToken = data.data.token;
         store.commit('setUserId', userId);
-        store.commit('seToken', authToken);
+        store.commit('setToken', authToken);
         
         localStorage.setItem('userId', userId);
         localStorage.setItem('authToken', authToken);
