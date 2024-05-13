@@ -75,26 +75,30 @@ const getAllProjects = () => {
     };
 
     const addProject = () => {
-
+        console.log("userId:", userId);
+    
+        // Parse startDate and endDate strings into Date objects
+        const startDate = project.value.startDate ? new Date(project.value.startDate) : null;
+        const endDate = project.value.endDate ? new Date(project.value.endDate) : null;
+    
         const requestOption = {
             method: "Post",
             headers: {
-                'auth-token': authToken
+                'auth-token': authToken,
+                'Content-Type': 'application/json' 
             },
             body: JSON.stringify({
                 title: project.value.title,
                 description: project.value.description,
-                startDate: project.value.startDate,
-                endDate: project.value.endDate,
+                startDate: startDate ? startDate.toISOString() : null,
+                endDate: endDate ? endDate.toISOString() : null,
                 status: project.value.status,
                 author: project.value.author
-                // collaborators: project.collaborators
-            })
-            
-        }
+            }) 
+        };
         console.log(project.value); 
         fetch(`${baseURL}/api/project`, requestOption)
-            .then(getProjectbyID())
+            .then(getProjectbyID());
     };
 
 
