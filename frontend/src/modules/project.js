@@ -6,7 +6,8 @@ const baseURL = `https://pwa-semester-project.onrender.com`;
 //get all projects
 
 const getAllProjects = () => {
-    
+    const userId = store.getters.getUserId;
+
     const project = ref({
         _id: "",
         title: "",
@@ -14,12 +15,11 @@ const getAllProjects = () => {
         startDate: "",
         endDate: "",
         status: "",
-        author: "",
+        author: userId,
         collaborators: ""
     });
 
     const projectLoaded = ref(false);
-    const userId = store.getters.getUserId;
     const authToken = store.getters.getToken;
     const projects = ref([]);
 
@@ -83,7 +83,6 @@ const getAllProjects = () => {
     };
 
     const addProject = () => {
-        const userId = store.getters.getUserId; // Fetch userId here
     console.log("userId:", userId);
         const requestOption = {
             method: "Post",
@@ -96,7 +95,7 @@ const getAllProjects = () => {
                 startDate: project.value.startDate,
                 endDate: project.value.endDate,
                 status: project.value.status,
-                author: userId
+                author: project.value.author
                 // collaborators: project.collaborators
             })
             
