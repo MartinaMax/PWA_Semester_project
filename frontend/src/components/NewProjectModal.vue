@@ -7,23 +7,23 @@
       <form action="">
         <div class="flex">
           <p class="margin-b-15">Project name</p>
-          <input type="text" name="title" required>
+          <input type="text" name="title" v-model="project.title" required>
         </div>
         <p class="margin-b-8">Description</p>
-        <textarea class="margin-b-15">LOrem ipsum</textarea>
+        <textarea class="margin-b-15" v-model="project.description">LOrem ipsum</textarea>
         <div class="flex margin-b-15">
           <p>Start date</p>
-          <input type="date" name="startDate" required>
+          <input type="date" name="startDate" v-model="project.startDate" required>
         </div>
         <div class="flex margin-b-15">
           <p>End date</p>
-          <input type="date" name="endDate" required>
+          <input type="date" name="endDate" v-model="project.endDate" required>
         </div>
         <!-- Status dropdown -->
         <div class="flex margin-b-15">
           <p>Status</p>
           <div class="dropdown-container">
-            <input type="text" placeholder="Choose status" v-model="selectedOption" @click="toggleDropdown" readonly>
+            <input type="text" placeholder="Choose status" @click="toggleDropdown" v-model="project.status" readonly>
             <ul v-if="isDropdownOpen">
               <li v-for="(option, index) in dropdownOptions" :key="index" @click="selectOption(option)">
               {{ option }}
@@ -34,17 +34,17 @@
         <div>
         <!-- Collaborators checkbox -->
           <p class="margin-b-8">Collaborators</p>
-          <div class="collaborators">
+          <!-- <div class="collaborators">
             <div v-for="(collaborator, index) in collaborators" :key="index">
-              <input type="checkbox" :id="'collaborator_' + collaborator.id" :value="collaborator.id" v-model="selectedCollaborators">
+              <input type="checkbox" :id="'collaborator_' + collaborator.id" :value="collaborator.id" v-model="project.collaborators">
               <label :for="'collaborator_' + collaborator.id">{{ collaborator.name }}</label><br>
             </div>
-          </div>
+          </div> -->
         </div>
       </form>
       <!-- Edit button -->
       <div class="edit-button-container">
-        <button class="edit-button" type="submit" @click="closeModal()">Create</button>
+        <button class="edit-button" type="submit" @click="addProject(project)">Create</button>
       </div>
     </div>
   </div>  
@@ -52,7 +52,7 @@
   
 <script>
  import { defineComponent } from 'vue';
-
+ import getAllProjects from '../modules/project.js';
 
   export default defineComponent({
   name: 'NewProjectModal',
@@ -67,15 +67,19 @@
       emit('close');
     };
 
+    const { project, addProject } = getAllProjects();
+
     return {
-      closeModal
+      closeModal,
+      project, 
+      addProject
     };
+    
   },
   data() {
     return {
       isDropdownOpen: false,
-      selectedOption: '',
-      dropdownOptions: ['Option 1', 'Option 2', 'Option 3']
+      dropdownOptions: ['To do', 'In progress', 'Done']
     };
   },
   methods: {
@@ -85,7 +89,7 @@
     selectOption(option) {
       this.selectedOption = option;
       this.isDropdownOpen = false; 
-      this.$emit('option-selected', option);
+      this.project.status = option; 
     }
   }
 });

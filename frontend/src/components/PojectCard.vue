@@ -31,7 +31,7 @@
 
 <script>
 import ProjectEditModal from '../components/ProjectEditModal.vue';
-import getAllProjects from '../modules/projectCards.js';
+import getAllProjects from '../modules/project.js';
 import { ref, onMounted } from "vue";
 
 export default {
@@ -130,3 +130,4 @@ a {
   justify-content: space-around;
 }
 </style>
+../modules/project.js

@@ -6,6 +6,7 @@ const baseURL = `https://pwa-semester-project.onrender.com`;
 //get all projects
 
 const getAllProjects = () => {
+    
     const project = ref({
         _id: "",
         title: "",
@@ -14,6 +15,7 @@ const getAllProjects = () => {
         endDate: "",
         status: "",
         author: "",
+        collaborators: ""
     });
 
     const projectLoaded = ref(false);
@@ -57,7 +59,7 @@ const getAllProjects = () => {
                     // User has zero projects
                     projects.value = [];
                     projectLoaded.value = true;
-                
+
                 } else {
                     // User has multiple projects
                     console.log(data);
@@ -70,7 +72,7 @@ const getAllProjects = () => {
                         status: project.status,
                         author: getUserById(project.author) || "Unknown"
                     }));
-                    projectLoaded.value = true; 
+                    projectLoaded.value = true;
                 }
             } else {
                 console.error("Invalid data format received from the server");
@@ -80,9 +82,33 @@ const getAllProjects = () => {
         }
     };
 
-    
+    const addProject = () => {
+        const userId = store.getters.getUserId; // Fetch userId here
+    console.log("userId:", userId);
+        const requestOption = {
+            method: "Post",
+            headers: {
+                'auth-token': authToken
+            },
+            body: JSON.stringify({
+                title: project.value.title,
+                description: project.value.description,
+                startDate: project.value.startDate,
+                endDate: project.value.endDate,
+                status: project.value.status,
+                author: userId
+                // collaborators: project.collaborators
+            })
+            
+        }
+        console.log(project.value); 
+        fetch(`${baseURL}/api/project`, requestOption)
+            .then(getProjectbyID())
+    };
 
-    return { project, projectLoaded, getProjectbyID };
+
+
+    return { project, projectLoaded, getProjectbyID, addProject };
 };
 
 export default getAllProjects;
