@@ -23,14 +23,6 @@ const getAllProjects = () => {
     const authToken = store.getters.getToken;
     const projects = ref([]);
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-    };
-
     const getUserById = async () => {
         try {
             const response = await fetch(`${baseURL}/api/users/` + userId, {
@@ -67,8 +59,8 @@ const getAllProjects = () => {
                         _id: project._id,
                         title: project.title,
                         description: project.description,
-                        startDate: formatDate(project.startDate),
-                        endDate: formatDate(project.endDate),
+                        startDate: project.startDate,
+                        endDate: project.endDate,
                         status: project.status,
                         author: getUserById(project.author) || "Unknown"
                     }));
@@ -83,7 +75,7 @@ const getAllProjects = () => {
     };
 
     const addProject = () => {
-    console.log("userId:", userId);
+
         const requestOption = {
             method: "Post",
             headers: {
