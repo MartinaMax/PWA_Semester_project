@@ -23,6 +23,14 @@ const getAllProjects = () => {
     const authToken = store.getters.getToken;
     const projects = ref([]);
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${day}.${month}.${year}`;
+    };
+
     const getUserById = async () => {
         try {
             const response = await fetch(`${baseURL}/api/users/` + userId, {
@@ -54,15 +62,17 @@ const getAllProjects = () => {
 
                 } else {
                     // User has multiple projects
+                    const authorName = await getUserById(project.value.author) || "Unknown";
                     console.log(data);
+                    
                     projects.value = data.map((project) => ({
                         _id: project._id,
                         title: project.title,
                         description: project.description,
-                        startDate: project.startDate,
-                        endDate: project.endDate,
+                        startDate: formatDate(project.startDate),
+                        endDate: formatDate(project.endDate),
                         status: project.status,
-                        author: getUserById(project.author) || "Unknown"
+                        author: authorName,
                     }));
                     projectLoaded.value = true;
                 }
@@ -103,7 +113,7 @@ const getAllProjects = () => {
 
 
 
-    return { project, projectLoaded, getProjectbyID, addProject };
+    return { project, projects, projectLoaded, getProjectbyID, addProject };
 };
 
 export default getAllProjects;

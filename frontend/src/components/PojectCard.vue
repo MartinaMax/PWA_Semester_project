@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div>
     <div v-if="projectLoaded">
       <article v-for="project in projects" :key="project._id" class="projectcard margin-b-30">
@@ -14,9 +14,11 @@
         </div>
         <router-link to="/project">
           <p class="margin-b-15">{{ project.description }}</p>
-          <p class="margin-b-15">{{ project.startDate }}</p>
-          <p class="margin-b-15">{{ project.endDate }}</p>
-          <div class="flex">
+          <div class="date-flex">
+            <p class="margin-b-15">{{ project.startDate }}</p>-
+            <p class="margin-b-15">{{ project.endDate }}</p>
+          </div>
+          <div class="statusowner-flex">
             <p>{{ project.status }}</p>
             <p class="project-owner">{{ project.author }}</p>
           </div>
@@ -40,22 +42,20 @@ export default {
     ProjectEditModal
   },
   setup() {
+  const { projects, projectLoaded, getProjectbyID } = getAllProjects();
 
-    const { project, projects, projectLoaded, getProjectbyID } = getAllProjects();
+  const modalOpen = ref(false);
+  const openModal = () => {
+    modalOpen.value = true;
+  };
+  onMounted(() => {
+    getProjectbyID();
+  });
 
-    const modalOpen = ref(false);
-    const openModal = () => {
-      modalOpen.value = true;
-    };
-    onMounted(() => {
-      getProjectbyID();
-    });
-
-    return { project, projects, modalOpen, openModal, projectLoaded, getProjectbyID };
+  return { projects, modalOpen, openModal, projectLoaded };
   }
 };
 </script>
-
 
 <style scoped>
 .projectcard {
@@ -84,7 +84,13 @@ a {
   color: black;
 }
 
-.flex {
+.date-flex {
+  display: flex;
+  gap: 15px;
+}
+
+
+.statusowner-flex{
   display: flex;
   justify-content: space-between;
 }
