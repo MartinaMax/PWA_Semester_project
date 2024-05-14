@@ -107,7 +107,20 @@ const getAllProjects = () => {
             })
         };
         fetch(`${baseURL}/api/project`, requestOption)
-            .then(() => getProjectbyID());
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to add new project. Please try again.');
+                }
+                return response.json();
+            })
+            .then(() => {
+                window.alert('New project added successfully!');
+                getProjectbyID();
+            })
+            .catch(error => {
+                console.error('Error adding project:', error);
+                window.alert('Failed to add new project. Please try again.');
+            });
     };
 
     const deleteProject = (_id) => {
@@ -118,7 +131,16 @@ const getAllProjects = () => {
                 'Content-Type': 'application/json'
             }
         },)
-            .then(() => getProjectbyID());
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to delete the project. Please try again.');
+                }
+                return response.json();
+            })
+            .then(() => {
+                window.alert('Project deleted successfully!');
+                getProjectbyID();
+            })
     }
 
 
