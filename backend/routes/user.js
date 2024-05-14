@@ -3,6 +3,16 @@ const { ref } = require("joi");
 const user = require("../models/user");
 const { tokenVerification } = require("../validation");
 
+router.get("/", tokenVerification,  (req, res) => {
+   
+    user.find()
+    .then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        res.status(500).send({ message: err.message });
+    });
+});
 
 router.get("/:userID", tokenVerification,  (req, res) => {
    
