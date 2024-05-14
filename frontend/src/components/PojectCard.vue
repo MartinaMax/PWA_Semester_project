@@ -1,9 +1,9 @@
- <template>
+<template>
   <div>
     <div v-if="projectLoaded">
       <article v-for="project in projects" :key="project._id" class="projectcard margin-b-30">
         <div>
-          <router-link to="/project">
+          <router-link to="/project" @click="goToProject(project._id, project.title, project.collaborators)">
             <h3 class="margin-b-15">{{ project.title }}</h3>
           </router-link>
           <div class="icon">
@@ -12,7 +12,7 @@
             <button @click="deleteProject(project._id)"><img src="../assets/bin-icon.svg" alt=""></button>
           </div>
         </div>
-        <router-link to="/project">
+        <router-link to="/project" @click="goToProject(project._id, project.title, project.collaborators)">
           <p class="margin-b-15">{{ project.description }}</p>
           <div class="date-flex">
             <p class="margin-b-15">{{ project.startDate }}</p>-
@@ -37,6 +37,7 @@ import ProjectEditModal from '../components/ProjectEditModal.vue';
 import getAllProjects from '../modules/project.js';
 import { ref, onMounted } from "vue";
 import store from '../store/store';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'ProjectCard',
@@ -44,23 +45,38 @@ export default {
     ProjectEditModal
   },
   setup() {
-  const { project, projects, projectLoaded, getProjectbyID, deleteProject } = getAllProjects();
+    const { project, projects, projectLoaded, getProjectbyID, deleteProject } = getAllProjects();
 
-  const modalOpen = ref(false);
-  const openModal = (_id) => {
-  if (_id) {
-    modalOpen.value = true;
-    store.commit('setProjectId', _id);
-  } else {
-    modalOpen.value = true;
-  }
-};
-  onMounted(() => {
-    getProjectbyID();
-  });
+    const router = useRouter();
+    const modalOpen = ref(false);
+    const openModal = (_id) => {
+      if (_id) {
+        modalOpen.value = true;
+        store.commit('setProjectId', _id);
+      } else {
+        modalOpen.value = true;
+      }
+    };
+    const goToProject = (_id, title, collaborators) => {
+      if (_id) {
+        store.commit('setProjectId', _id);
+        store.commit('setProjectTitle', title);
+        store.commit('setCollaborators', _id);
+        console.log('Values assigned:', _id, collaborators, title); 
+        router.push('/project');
+      }
+    };
+    const beforeRouteLeave = (to, from, next) => {
+      // Optionally save or clean up data here
+      next();
+    };
 
-  return { project, projects, modalOpen, openModal, projectLoaded, deleteProject, ...mapMutations(['setProjectId']) };
-  }
+    onMounted(() => {
+      getProjectbyID();
+    });
+
+    return { project, projects, modalOpen, openModal, projectLoaded, deleteProject, ...mapMutations(['setProjectId', 'setProjectTitle', "setCollaborators"]), goToProject, beforeRouteLeave };
+  },
 };
 </script>
 
@@ -98,7 +114,7 @@ a {
 }
 
 
-.statusowner-flex{
+.statusowner-flex {
   display: flex;
   justify-content: space-between;
 }

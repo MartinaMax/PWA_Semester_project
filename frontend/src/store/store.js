@@ -4,7 +4,9 @@ const store = createStore({
   state: {
     userId: localStorage.getItem('userId') || null,
     authToken: localStorage.getItem('authToken') || null,
-    projectId: null
+    projectId: null,
+    projectTitle: null,
+    collaborators: null
   },
   mutations: {
     setUserId(state, userId) {
@@ -17,6 +19,12 @@ const store = createStore({
     },
     setProjectId(state, projectId) {
       state.projectId = projectId;
+    },
+    setProjectTitle(state, projectTitle) {
+      state.projectTitle = projectTitle;
+    },
+    setCollaborators(state, collaborators) {
+      state.collaborators = collaborators;
     }
   },
   actions: {
@@ -24,7 +32,9 @@ const store = createStore({
   getters: {
     getUserId: state => state.userId,
     getToken: state => state.authToken,
-    getProjectId: state => state.projectId
+    getProjectId: state => state.projectId,
+    getProjectTitle: state => state.projectTitle,
+    getCollaborators: state => state.collaborators
   }
 });
 
