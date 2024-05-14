@@ -35,10 +35,10 @@ let taskSchema = new Schema({
     ref: "user"
   }],
 
-  project: [{
+  project: {
     type: Schema.Types.ObjectId, 
-    ref: 'task', 
-}],
+    ref: 'project', 
+},
 
   state: {
     type: String,
