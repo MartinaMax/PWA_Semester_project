@@ -31,7 +31,7 @@ router.post("/", tokenVerification, (req, res) => {
   project
     .insertMany(data)
     .then((data) => {
-      res.send({ alert: "New project added", data});
+      res.send(data);
     })
     .catch((err) => {
       res.status(500).send(JSON.stringify(err));
