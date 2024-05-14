@@ -3,7 +3,7 @@ import store from "../store/store";
 
 const baseURL = `https://pwa-semester-project.onrender.com`;
 
-//get all projects
+//Project CRUD operations
 
 const getAllProjects = () => {
     const userId = store.getters.getUserId;
@@ -46,6 +46,7 @@ const getAllProjects = () => {
         }
     };
 
+    //get all projects by user id
     const getProjectbyID = async () => {
         try {
             const response = await fetch(`${baseURL}/api/project/` + userId, {
@@ -84,6 +85,7 @@ const getAllProjects = () => {
         }
     };
 
+    //post new projects
     const addProject = () => {
         console.log("userId:", userId);
     

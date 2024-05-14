@@ -44,7 +44,7 @@
       </form>
       <!-- Edit button -->
       <div class="edit-button-container">
-        <button class="edit-button" type="submit" @click="addProject(project)">Create</button>
+        <button class="edit-button" type="submit" @click="addProject(project); closeModal()">Create</button>
       </div>
     </div>
   </div>  
