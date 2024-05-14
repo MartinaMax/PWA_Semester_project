@@ -110,11 +110,12 @@ const getAllProjects = () => {
             .then(response => {
                 if (!response.ok) {
                     window.alert('Failed to add new project. Please try again.');
+                } else {
+                    window.alert('New project added successfully!');
                 }
                 return response.json();
             })
             .then(() => {
-                window.alert('New project added successfully!');
                 getProjectbyID();
             })
             .catch(error => {
@@ -135,11 +136,12 @@ const getAllProjects = () => {
             .then(response => {
                 if (!response.ok) {
                     window.alert('Failed to delete the project. Please try again.');
+                } else {
+                    window.alert('Project deleted successfully!');
                 }
                 return response.json();
             })
             .then(() => {
-                window.alert('Project deleted successfully!');
                 getProjectbyID();
             })
     }
@@ -150,7 +152,7 @@ const getAllProjects = () => {
         // Parse startDate and endDate strings into Date objects
         const startDate = project.value.startDate ? new Date(project.value.startDate) : null;
         const endDate = project.value.endDate ? new Date(project.value.endDate) : null;
-        
+
         const requestOptions = {
             method: "Put",
             headers: {
@@ -171,8 +173,8 @@ const getAllProjects = () => {
             .then(response => {
                 if (!response.ok) {
                     window.alert('Failed to edit the project. Please try again.');
-                } else{
-                window.alert('Project edited successfully!');
+                } else {
+                    window.alert('Project edited successfully!');
                 }
                 return response.json();
             })
