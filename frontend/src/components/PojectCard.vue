@@ -85,6 +85,7 @@ button {
   background: none;
   border: none;
   height: fit-content;
+  cursor: pointer;
 }
 
 a {
