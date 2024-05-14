@@ -6,18 +6,18 @@
       <!-- Form -->
       <form action="">
         <div class="flex">
-          <p class="margin-b-15">Project name</p>
-          <input type="text" name="title" required>
+          <p class="margin-b-15">Project title</p>
+          <input type="text" name="title"  v-model="project.title" required>
         </div>
         <p class="margin-b-8">Description</p>
-        <textarea class="margin-b-15">LOrem ipsum</textarea>
+        <textarea class="margin-b-15"  v-model="project.description">LOrem ipsum</textarea>
         <div class="flex margin-b-15">
           <p>Start date</p>
-          <input type="date" name="startDate" required>
+          <input type="date" name="startDate"  v-model="project.startDate" required>
         </div>
         <div class="flex margin-b-15">
           <p>End date</p>
-          <input type="date" name="endDate" required>
+          <input type="date" name="endDate"  v-model="project.endDate" required>
         </div>
         <!-- Status dropdown -->
         <div class="flex margin-b-15">
@@ -44,7 +44,7 @@
       </form>
       <!-- Edit button -->
       <div class="edit-button-container">
-        <button class="edit-button" type="submit" @click="closeModal()">Edit</button>
+        <button class="edit-button" type="submit" @click="editProject(); closeModal()">Edit</button>
       </div>
     </div>
   </div>  
@@ -52,6 +52,7 @@
   
 <script>
  import { defineComponent } from 'vue';
+ import getAllProjects from '../modules/project.js';
 
 
     export default defineComponent({
@@ -67,15 +68,18 @@
       emit('close');
     };
 
+    const { project, editProject } = getAllProjects();
+
     return {
-      closeModal
+      closeModal,
+      project,
+      editProject
     };
   },
   data() {
     return {
       isDropdownOpen: false,
-      selectedOption: '',
-      dropdownOptions: ['Option 1', 'Option 2', 'Option 3']
+      dropdownOptions: ['To do', 'In progress', 'Done']
     };
   },
   methods: {
@@ -85,7 +89,7 @@
     selectOption(option) {
       this.selectedOption = option;
       this.isDropdownOpen = false; 
-      this.$emit('option-selected', option);
+      this.project.status = option; 
     }
   }
 });

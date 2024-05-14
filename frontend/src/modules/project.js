@@ -109,7 +109,7 @@ const getAllProjects = () => {
         fetch(`${baseURL}/api/project`, requestOption)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Failed to add new project. Please try again.');
+                    window.alert('Failed to add new project. Please try again.');
                 }
                 return response.json();
             })
@@ -123,6 +123,7 @@ const getAllProjects = () => {
             });
     };
 
+    //delete projects
     const deleteProject = (_id) => {
         fetch(`${baseURL}/api/project/` + _id, {
             method: "DELETE",
@@ -133,7 +134,7 @@ const getAllProjects = () => {
         },)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Failed to delete the project. Please try again.');
+                    window.alert('Failed to delete the project. Please try again.');
                 }
                 return response.json();
             })
@@ -143,9 +144,45 @@ const getAllProjects = () => {
             })
     }
 
+    const editProject = () => {
+        const projectId = store.getters.getProjectId;
+
+        // Parse startDate and endDate strings into Date objects
+        const startDate = project.value.startDate ? new Date(project.value.startDate) : null;
+        const endDate = project.value.endDate ? new Date(project.value.endDate) : null;
+        
+        const requestOptions = {
+            method: "Put",
+            headers: {
+                'auth-token': authToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: project.value.title,
+                description: project.value.description,
+                startDate: startDate ? startDate.toISOString() : null,
+                endDate: endDate ? endDate.toISOString() : null,
+                status: project.value.status,
+                author: project.value.author
+            })
+        }
+        console.log("Request Body:", requestOptions.body);
+        fetch(`${baseURL}/api/project/` + projectId, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    window.alert('Failed to edit the project. Please try again.');
+                } else{
+                window.alert('Project edited successfully!');
+                }
+                return response.json();
+            })
+            .then(() => {
+                getProjectbyID();
+            })
+    }
 
 
-    return { project, projects, projectLoaded, getProjectbyID, addProject, deleteProject };
+    return { project, projects, projectLoaded, getProjectbyID, addProject, deleteProject, editProject };
 };
 
 export default getAllProjects;

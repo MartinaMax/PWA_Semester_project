@@ -23,7 +23,7 @@
         <div class="flex margin-b-15">
           <p>Status</p>
           <div class="dropdown-container">
-            <input type="text" placeholder="Choose status" @click="toggleDropdown" v-model="project.status" readonly>
+            <input type="text" placeholder="Choose status" @click="toggleDropdown" v-model="selectedOption" readonly>
             <ul v-if="isDropdownOpen">
               <li v-for="(option, index) in dropdownOptions" :key="index" @click="selectOption(option)">
               {{ option }}

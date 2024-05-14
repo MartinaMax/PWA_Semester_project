@@ -7,7 +7,7 @@
             <h3 class="margin-b-15">{{ project.title }}</h3>
           </router-link>
           <div class="icon">
-            <button @click="openModal()"><img src="../assets/pen-icon.svg" alt=""></button>
+            <button @click="openModal(project._id)"><img src="../assets/pen-icon.svg" alt=""></button>
             <ProjectEditModal :is-open="modalOpen" @close="modalOpen = false" />
             <button @click="deleteProject(project._id)"><img src="../assets/bin-icon.svg" alt=""></button>
           </div>
@@ -32,9 +32,11 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import ProjectEditModal from '../components/ProjectEditModal.vue';
 import getAllProjects from '../modules/project.js';
 import { ref, onMounted } from "vue";
+import store from '../store/store';
 
 export default {
   name: 'ProjectCard',
@@ -42,17 +44,22 @@ export default {
     ProjectEditModal
   },
   setup() {
-  const { projects, projectLoaded, getProjectbyID, deleteProject } = getAllProjects();
+  const { project, projects, projectLoaded, getProjectbyID, deleteProject } = getAllProjects();
 
   const modalOpen = ref(false);
-  const openModal = () => {
+  const openModal = (_id) => {
+  if (_id) {
     modalOpen.value = true;
-  };
+    store.commit('setProjectId', _id);
+  } else {
+    modalOpen.value = true;
+  }
+};
   onMounted(() => {
     getProjectbyID();
   });
 
-  return { projects, modalOpen, openModal, projectLoaded, deleteProject };
+  return { project, projects, modalOpen, openModal, projectLoaded, deleteProject, ...mapMutations(['setProjectId']) };
   }
 };
 </script>
