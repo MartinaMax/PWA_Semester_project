@@ -14,6 +14,7 @@
   --light-green: #DFF9BA;
   --lime-green: #C5FF73;
   --light-grey: #D9D9D9;
+  --white: #fff;
 }
 * {
   box-sizing: border-box;

@@ -4,7 +4,7 @@
       <div class="close-button-container"><img @click="closeModal()" src="../assets/close-icon.svg" alt=""> </div>
       <h3 class="margin-b-30 textcenter">New project</h3>
       <!-- Form -->
-      <form action="">
+      <form action="" >
         <div class="flex">
           <p class="margin-b-15">Project title*</p>
           <input type="text" name="title" v-model="project.title" required>
@@ -34,24 +34,25 @@
         <div>
         <!-- Collaborators checkbox -->
           <p class="margin-b-8">Collaborators</p>
-          <!-- <div class="collaborators">
-            <div v-for="(collaborator, index) in collaborators" :key="index">
-              <input type="checkbox" :id="'collaborator_' + collaborator.id" :value="collaborator.id" v-model="project.collaborators">
-              <label :for="'collaborator_' + collaborator.id">{{ collaborator.name }}</label><br>
+          <div class="collaborators margin-b-15">
+            <div class="collaborators-back" v-for="(collaborator, index) in collab" :key="index">
+              <input class="custom-checkbox-label" type="checkbox" :id="'collaborator_' + collaborator._id" :value="collaborator._id" v-model="project.collaborators">
+              <label :for="'collaborator_' + collaborator._id">{{ collaborator.name }}</label>
+              <label :for="'collaborator_' + collaborator._id">{{ collaborator.email }}</label>
             </div>
-          </div> -->
+          </div>
         </div>
       </form>
       <!-- Edit button -->
-      <div class="edit-button-container">
-        <button class="edit-button" type="submit" @click="addProject(project); closeModal()">Create</button>
+      <div class="create-button-container">
+        <button class="create-button" type="submit" @click="addProject(project); closeModal()">Create</button>
       </div>
     </div>
   </div>  
 </template>
   
 <script>
- import { defineComponent } from 'vue';
+ import { defineComponent, onMounted } from 'vue';
  import getAllProjects from '../modules/project.js';
 
   export default defineComponent({
@@ -67,19 +68,28 @@
       emit('close');
     };
 
-    const { project, addProject } = getAllProjects();
+    const { project, addProject, getUsers, collab } = getAllProjects();
+
+    onMounted(() => {
+      getUsers();
+    });
+
 
     return {
       closeModal,
       project, 
-      addProject
+      addProject,
+      getUsers, 
+      collab,
     };
+
     
   },
   data() {
     return {
       isDropdownOpen: false,
-      dropdownOptions: ['To do', 'In progress', 'Done']
+      dropdownOptions: ['To do', 'In progress', 'Done'],
+      selectedOption: ''
     };
   },
   methods: {
@@ -131,7 +141,7 @@
 
     textarea {
       width: 650px;
-      height: 100px;
+      height: 80px;
     }
 
     .flex {
@@ -154,7 +164,7 @@
       top: 100%;
       right: 0;
       list-style-type: none;
-      background-color: #fff;
+      background-color: var(--white);
     }
     
     .dropdown-container > ul > li {
@@ -163,7 +173,18 @@
     }
     
     .dropdown-container > ul > li:hover {
-      background-color: #f0f0f0;
+      background-color: var(--light-green);
+    }
+
+    .collaborators {
+      overflow-y: auto;
+      height: 80px;
+    }
+
+    .collaborators-back {
+      background-color: var(--white);
+      display: flex;
+      gap: 75px;
     }
 
     .close-button-container {
@@ -172,12 +193,12 @@
       cursor: pointer;
     }
 
-    .edit-button-container {
+    .create-button-container {
         display: flex;
         justify-content: center;
       }
 
-    .edit-button {
+    .create-button {
         border: none;
         background-color: var(--light-green);
         font-size: 18px;

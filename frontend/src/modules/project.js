@@ -16,12 +16,13 @@ const getAllProjects = () => {
         endDate: "",
         status: "",
         author: userId,
-        collaborators: ""
+        collaborators: []
     });
 
     const projectLoaded = ref(false);
     const authToken = store.getters.getToken;
     const projects = ref([]);
+    const collab = ref([]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -40,6 +41,22 @@ const getAllProjects = () => {
             });
             const userData = await response.json();
             return userData.name;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    };
+
+    const getUsers = async () => {
+        try {
+            const response = await fetch(`${baseURL}/api/users/`, {
+                headers: {
+                    'auth-token': authToken
+                }
+            });
+            const data = await response.json();
+            collab.value = data;
+            console.log('Collaborators:', collab.value);
         } catch (error) {
             console.error(error);
             return null;
@@ -103,7 +120,8 @@ const getAllProjects = () => {
                 startDate: startDate ? startDate.toISOString() : null,
                 endDate: endDate ? endDate.toISOString() : null,
                 status: project.value.status,
-                author: project.value.author
+                author: project.value.author,
+                collaborators: project.value.collaborators,
             })
         };
         fetch(`${baseURL}/api/project`, requestOption)
@@ -184,7 +202,7 @@ const getAllProjects = () => {
     }
 
 
-    return { project, projects, projectLoaded, getProjectbyID, addProject, deleteProject, editProject };
+    return { project, projects,  projectLoaded, getProjectbyID, addProject, deleteProject, editProject, getUsers, collab };
 };
 
 export default getAllProjects;
