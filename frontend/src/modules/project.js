@@ -64,9 +64,8 @@ const getAllProjects = () => {
                 } else {
                     // User has multiple projects
                     const authorName = await getUserById(project.value.author) || "Unknown";
-                    console.log(data);
-                    
-                    projects.value = data.map((project) => ({
+
+                    projects.value.splice(0, projects.value.length, ...data.map((project) => ({
                         _id: project._id,
                         title: project.title,
                         description: project.description,
@@ -74,7 +73,7 @@ const getAllProjects = () => {
                         endDate: formatDate(project.endDate),
                         status: project.status,
                         author: authorName,
-                    }));
+                    })));
                     projectLoaded.value = true;
                 }
             } else {
@@ -87,17 +86,16 @@ const getAllProjects = () => {
 
     //post new projects
     const addProject = () => {
-        console.log("userId:", userId);
-    
+
         // Parse startDate and endDate strings into Date objects
         const startDate = project.value.startDate ? new Date(project.value.startDate) : null;
         const endDate = project.value.endDate ? new Date(project.value.endDate) : null;
-    
+
         const requestOption = {
             method: "Post",
             headers: {
                 'auth-token': authToken,
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 title: project.value.title,
@@ -106,16 +104,26 @@ const getAllProjects = () => {
                 endDate: endDate ? endDate.toISOString() : null,
                 status: project.value.status,
                 author: project.value.author
-            }) 
+            })
         };
-        console.log(project.value); 
         fetch(`${baseURL}/api/project`, requestOption)
-            .then(getProjectbyID());
+            .then(() => getProjectbyID());
     };
 
+    const deleteProject = (_id) => {
+        fetch(`${baseURL}/api/project/` + _id, {
+            method: "DELETE",
+            headers: {
+                'auth-token': authToken,
+                'Content-Type': 'application/json'
+            }
+        },)
+            .then(() => getProjectbyID());
+    }
 
 
-    return { project, projects, projectLoaded, getProjectbyID, addProject };
+
+    return { project, projects, projectLoaded, getProjectbyID, addProject, deleteProject };
 };
 
 export default getAllProjects;

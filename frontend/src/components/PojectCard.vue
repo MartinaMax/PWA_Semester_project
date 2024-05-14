@@ -9,7 +9,7 @@
           <div class="icon">
             <button @click="openModal()"><img src="../assets/pen-icon.svg" alt=""></button>
             <ProjectEditModal :is-open="modalOpen" @close="modalOpen = false" />
-            <button><img src="../assets/bin-icon.svg" alt=""></button>
+            <button @click="deleteProject(project._id)"><img src="../assets/bin-icon.svg" alt=""></button>
           </div>
         </div>
         <router-link to="/project">
@@ -42,7 +42,7 @@ export default {
     ProjectEditModal
   },
   setup() {
-  const { projects, projectLoaded, getProjectbyID } = getAllProjects();
+  const { projects, projectLoaded, getProjectbyID, deleteProject } = getAllProjects();
 
   const modalOpen = ref(false);
   const openModal = () => {
@@ -52,7 +52,7 @@ export default {
     getProjectbyID();
   });
 
-  return { projects, modalOpen, openModal, projectLoaded };
+  return { projects, modalOpen, openModal, projectLoaded, deleteProject };
   }
 };
 </script>
