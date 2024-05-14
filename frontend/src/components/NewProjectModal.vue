@@ -6,22 +6,22 @@
       <!-- Form -->
       <form action="">
         <div class="flex">
-          <p class="margin-b-15">Project name</p>
+          <p class="margin-b-15">Project title*</p>
           <input type="text" name="title" v-model="project.title" required>
         </div>
-        <p class="margin-b-8">Description</p>
+        <p class="margin-b-8">Description*</p>
         <textarea class="margin-b-15" v-model="project.description">LOrem ipsum</textarea>
         <div class="flex margin-b-15">
-          <p>Start date</p>
+          <p>Start date*</p>
           <input type="date" name="startDate" v-model="project.startDate" required>
         </div>
         <div class="flex margin-b-15">
-          <p>End date</p>
+          <p>End date*</p>
           <input type="date" name="endDate" v-model="project.endDate" required>
         </div>
         <!-- Status dropdown -->
         <div class="flex margin-b-15">
-          <p>Status</p>
+          <p>Status*</p>
           <div class="dropdown-container">
             <input type="text" placeholder="Choose status" @click="toggleDropdown" v-model="project.status" readonly>
             <ul v-if="isDropdownOpen">
