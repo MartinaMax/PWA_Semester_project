@@ -28,6 +28,16 @@ router.get("/userID", tokenVerification, (req, res) => {
     });
 });
 
+//GET /api/project/task?state
+router.get("/:state", tokenVerification, (req, res) => {
+
+  task.find({ state: req.params.state })
+    .then(data => {res.send(data); })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+});
+
 //GET /api/project/task?project
 router.get("/:project", tokenVerification, (req, res) => {
 
