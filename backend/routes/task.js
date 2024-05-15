@@ -40,9 +40,9 @@ router.get("/:state", tokenVerification, (req, res) => {
 
 //GET /api/project/task?project
 router.get("/:project", tokenVerification, (req, res) => {
-  const projectID = req.params.project
+  const project = req.params.project
 
-  task.find( projectID )
+  task.find( project )
     .then(data => {res.send(data); })
     .catch((err) => {
       res.status(500).send({ message: err.message });
