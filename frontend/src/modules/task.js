@@ -49,8 +49,9 @@ const getAllTasks = () => {
 
     //get tasks based on project and state
     const getTaskByProjectAndState = async () => {
+        const state = "done";
         try {
-            const response = await fetch(`${baseURL}/api/task/${projectId}?done`, {
+            const response = await fetch(`${baseURL}/api/task?${projectId}&${state}`, {
                 headers: {
                     'auth-token': authToken
                 }
@@ -75,6 +76,7 @@ const getAllTasks = () => {
                         status: task.status,
                         author: authorName,
                     })));
+                    console.log(data)
                     taskLoaded.value = true;
                 }
             } else {
