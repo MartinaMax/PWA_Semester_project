@@ -5,9 +5,10 @@ const { tokenVerification } = require('../validation');
 
 //Defining the endpoints GET, POST, PUT, DELETE
 
-router.get("/", tokenVerification, (req, res) => {
+//GET /api/task/userID
+router.get("/:userID", tokenVerification, (req, res) => {
   task
-    .find()
+    .findById({userID: req.params.userID})
     .then((data) => {
       res.send(data);
     })
@@ -16,29 +17,7 @@ router.get("/", tokenVerification, (req, res) => {
     });
 });
 
-//GET /api/project/task?userID
-router.get("/userID", tokenVerification, (req, res) => {
-  task
-    .findById(req.params.userID)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
-
-//GET /api/project/task?state
-router.get("/:state", tokenVerification, (req, res) => {
-
-  task.find({ state: req.params.state })
-    .then(data => {res.send(data); })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
-
-//GET /api/project/task?project
+//GET /api/task/project
 router.get("/:project", tokenVerification, (req, res) => {
 
   task.find({ project: req.params.project })
@@ -48,20 +27,8 @@ router.get("/:project", tokenVerification, (req, res) => {
     });
 });
 
-// GET /api/project/task/:project/:state
-router.get("/:project/:state", tokenVerification, (req, res) => {
-  const projectID = req.params.project;
-  const state = req.params.state;
 
-  task.find({ project: projectID, state: state })
-    .then(data => { res.send(data); })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
-
-
-//POST /api/project/task [auth]
+//POST /api/task [auth]
 router.post("/", tokenVerification, (req, res) => {
 // router.post("/", (req, res) => {
   data = req.body;
@@ -75,7 +42,7 @@ router.post("/", tokenVerification, (req, res) => {
     });
 });
 
-//PUT /api/project/task [auth]
+//PUT /api/task [auth]
 router.put("/:id", tokenVerification, (req, res) => {
 // router.put("/:id", (req, res) => {
   const id = req.params.id;
