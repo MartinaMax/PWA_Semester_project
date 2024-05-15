@@ -5,15 +5,6 @@ const { tokenVerification } = require("../validation");
 
 // GET,POST,UPDATE & DELETE Projects (Only author of the project can)
 
-// GET - Fetch all project based on if you are a user or collaborator
-router.get("/:projectID", tokenVerification, async (req, res) => {
-
-    project.findById( req.params.projectID )
-    .then(data => {res.send(data); })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
 
 // GET - Fetch all project based on if you are a user or collaborator
 router.get("/:id", tokenVerification, async (req, res) => {
