@@ -6,7 +6,7 @@ const baseURL = `https://pwa-semester-project.onrender.com`;
 //Project CRUD operations
 const getAllTasks = () => {
     const userId = store.getters.getUserId;
-    const project = store.getters.getProjectId;
+    const projectId = store.getters.getProjectId;
     const authToken = store.getters.getToken;
     const tasks = ref([]);
     const taskLoaded = ref(false);
@@ -49,7 +49,7 @@ const getAllTasks = () => {
     //get tasks based on project id
     const getTaskByProject = async () => {
         try {
-            const response = await fetch(`${baseURL}/api/task/` + project, {
+            const response = await fetch(`${baseURL}/api/task/` + projectId, {
                 headers: {
                     'auth-token': authToken
                 }
