@@ -17,7 +17,7 @@
           <TaskCard/>
         </div>
         <div class="gapline"></div>
-        <div class="task-scroll-container" :id="Done">
+        <div class="task-scroll-container" ref="done">
         <TaskCard/>
         </div>
     </div>
