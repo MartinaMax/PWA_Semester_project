@@ -49,7 +49,7 @@ const getAllTasks = () => {
     //get tasks based on project id
     const getTaskByProject = async () => {
         try {
-            const response = await fetch(`${baseURL}/api/task/` + projectId, {
+            const response = await fetch(`${baseURL}/api/task/${projectId}`, {
                 headers: {
                     'auth-token': authToken
                 }
