@@ -48,10 +48,10 @@ const getAllTasks = () => {
     };
 
     //get tasks based on project and state
-    const getTaskByProjectAndState = async () => {
+    const getTaskByProjectAndDone = async () => {
         const state = "done";
         try {
-            const response = await fetch(`${baseURL}/api/task?${projectId}&${state}`, {
+            const response = await fetch(`${baseURL}/api/task/${projectId}/${state}`, {
                 headers: {
                     'auth-token': authToken
                 }
@@ -88,7 +88,7 @@ const getAllTasks = () => {
     };
 
 
-    return { getTaskByProjectAndState };
+    return { getTaskByProjectAndDone };
 }
 
 export default getAllTasks;

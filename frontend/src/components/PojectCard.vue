@@ -61,21 +61,17 @@ export default {
       if (_id) {
         store.commit('setProjectId', _id);
         store.commit('setProjectTitle', title);
-        store.commit('setCollaborators', _id);
+        store.commit('setCollaborators', collaborators);
         console.log('Values assigned:', _id, collaborators, title); 
         router.push('/project');
       }
-    };
-    const beforeRouteLeave = (to, from, next) => {
-      // Optionally save or clean up data here
-      next();
     };
 
     onMounted(() => {
       getProjectbyID();
     });
 
-    return { project, projects, modalOpen, openModal, projectLoaded, deleteProject, ...mapMutations(['setProjectId', 'setProjectTitle', "setCollaborators"]), goToProject, beforeRouteLeave };
+    return { project, projects, modalOpen, openModal, projectLoaded, deleteProject, ...mapMutations(['setProjectId', 'setProjectTitle', "setCollaborators"]), goToProject };
   },
 };
 </script>

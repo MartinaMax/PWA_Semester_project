@@ -4,9 +4,9 @@ const store = createStore({
   state: {
     userId: localStorage.getItem('userId') || null,
     authToken: localStorage.getItem('authToken') || null,
-    projectId: null,
-    projectTitle: null,
-    collaborators: null
+    projectId: localStorage.getItem('projectId') || null,
+    projectTitle: localStorage.getItem('projectTitle') || null,
+    collaborators: localStorage.getItem('collaborators') || null,
   },
   mutations: {
     setUserId(state, userId) {
@@ -19,13 +19,20 @@ const store = createStore({
     },
     setProjectId(state, projectId) {
       state.projectId = projectId;
+      localStorage.setItem('projectId', projectId)
     },
     setProjectTitle(state, projectTitle) {
       state.projectTitle = projectTitle;
+      localStorage.setItem('projectTitle', projectTitle)
     },
     setCollaborators(state, collaborators) {
       state.collaborators = collaborators;
-    }
+      localStorage.setItem('collaborators', collaborators)
+    },
+    clearProject(state) {
+      state.projectId = null;
+      state.projectTitle = null;
+    },
   },
   actions: {
   },

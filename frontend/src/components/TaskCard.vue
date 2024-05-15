@@ -36,13 +36,13 @@ export default {
     TaskEditModal
   },
   setup() {
-    const {  taskLoaded, getTaskByProjectAndState } = getAllTasks();
+    const {  taskLoaded, task, tasks, getTaskByProjectAndDone } = getAllTasks();
 
     onMounted(() => {
-      getTaskByProjectAndState();
+      getTaskByProjectAndDone();
     });
 
-    return { taskLoaded,getTaskByProjectAndState }
+    return { taskLoaded, task, tasks, getTaskByProjectAndDone }
 
   },
   data() {
