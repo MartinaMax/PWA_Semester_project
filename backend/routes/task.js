@@ -5,18 +5,6 @@ const { tokenVerification } = require('../validation');
 
 //Defining the endpoints GET, POST, PUT, DELETE
 
-//GET /api/task/userID
-router.get("/:userID", tokenVerification, (req, res) => {
-  task
-    .findById({userID: req.params.userID})
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
-
 //GET /api/task/project
 router.get("/:projectID", tokenVerification, (req, res) => {
 
