@@ -18,9 +18,9 @@ router.get("/:userID", tokenVerification, (req, res) => {
 });
 
 //GET /api/task/project
-router.get("/:project", tokenVerification, (req, res) => {
+router.get("/:projectID", tokenVerification, (req, res) => {
 
-  task.find({ project: req.params.project })
+  task.find({ project: req.params.projectID })
     .then(data => {res.send(data); })
     .catch((err) => {
       res.status(500).send({ message: err.message });
