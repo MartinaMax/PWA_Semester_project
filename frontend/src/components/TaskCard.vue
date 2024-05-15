@@ -1,10 +1,9 @@
 <template>
-
-  <div>
+  <div v-if="taskLoaded">
     <TaskModal :is-open="modalOpen" @close="modalOpen = false" />
     <TaskEditModal :is-modal-open="editmodalOpen" @close="editmodalOpen = false" />
-    <div v-if="taskLoaded">
-      <article v-for="task in tasks" :key="task._id" class="taskcard margin-b-15" @click="openModal()">
+    <div>
+      <article v-for="task in filteredTasks" :key="task._id" class="taskcard margin-b-15" @click="openModal()">
         <div class="spacebetween">
           <h4 class="margin-b-15">{{ task.title }}</h4>
           <div class="icon">
@@ -26,8 +25,7 @@
 <script>
 import TaskModal from '../components/TaskModal.vue'
 import TaskEditModal from '../components/TaskEditModal'
-import getAllTasks from "../modules/task.js"
-import { onMounted } from "vue"
+import { ref } from "vue"
 
 export default {
   name: 'TaskCard',
@@ -35,29 +33,29 @@ export default {
     TaskModal,
     TaskEditModal
   },
-  setup() {
-    const {  taskLoaded, task, tasks, getTaskByProjectAndDone } = getAllTasks();
-
-    onMounted(() => {
-      getTaskByProjectAndDone();
-    });
-
-    return { taskLoaded, task, tasks, getTaskByProjectAndDone }
-
+  props: {
+    tasks: Array,
+    status: String
   },
-  data() {
-    return {
-      modalOpen: false,
-      editmodalOpen: false
+setup(props) {
+    const taskLoaded = ref(true); 
+
+    const filteredTasks = ref([]);
+
+    filteredTasks.value = props.tasks.filter(task => task.status === props.status);
+
+    const modalOpen = ref(false);
+    const editmodalOpen = ref(false);
+
+    const openModal = () => {
+      modalOpen.value = true;
     };
-  },
-  methods: {
-    openModal() {
-      this.modalOpen = true;
-    },
-    openEditModal() {
-      this.editmodalOpen = true;
-    }
+
+    const openEditModal = () => {
+      editmodalOpen.value = true;
+    };
+
+    return { taskLoaded, filteredTasks, modalOpen, editmodalOpen, openModal, openEditModal }
   }
 }
 

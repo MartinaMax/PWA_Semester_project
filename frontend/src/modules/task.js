@@ -4,7 +4,6 @@ import store from "../store/store";
 const baseURL = `https://pwa-semester-project.onrender.com`;
 
 //Project CRUD operations
-
 const getAllTasks = () => {
     const userId = store.getters.getUserId;
     const projectId = store.getters.getProjectId;
@@ -20,7 +19,7 @@ const getAllTasks = () => {
         return `${day}.${month}.${year}`;
     };
 
-    const task = ref({
+    const task = {
         _id: "",
         title: "",
         description: "",
@@ -30,7 +29,7 @@ const getAllTasks = () => {
         author: userId,
         collaborators: "",
         project: ""
-    });
+    };
 
     const getUserById = async () => {
         try {
@@ -47,11 +46,10 @@ const getAllTasks = () => {
         }
     };
 
-    //get tasks based on project and state
-    const getTaskByProjectAndDone = async () => {
-        const state = "done";
+    //get tasks based on project id
+    const getTaskByProject = async () => {
         try {
-            const response = await fetch(`${baseURL}/api/task/${projectId}/${state}`, {
+            const response = await fetch(`${baseURL}/api/task/${projectId}`, {
                 headers: {
                     'auth-token': authToken
                 }
@@ -60,12 +58,12 @@ const getAllTasks = () => {
             if (Array.isArray(data)) {
                 if (data.length === 0) {
                     // User has zero tasks
-                    task.value = [];
+                    tasks.value = [];
                     taskLoaded.value = true;
 
                 } else {
                     // User has multiple tasks
-                    const authorName = await getUserById(task.value.author) || "Unknown";
+                    const authorName = await getUserById(task.author) || "Unknown";
 
                     tasks.value.splice(0, tasks.value.length, ...data.map((task) => ({
                         _id: task._id,
@@ -76,7 +74,7 @@ const getAllTasks = () => {
                         status: task.status,
                         author: authorName,
                     })));
-                    console.log(data)
+                    console.log("Tasks fetched successfully:", tasks.value);
                     taskLoaded.value = true;
                 }
             } else {
@@ -88,7 +86,7 @@ const getAllTasks = () => {
     };
 
 
-    return { getTaskByProjectAndDone };
+    return { getTaskByProject };
 }
 
 export default getAllTasks;

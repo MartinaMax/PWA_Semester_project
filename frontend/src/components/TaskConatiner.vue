@@ -6,65 +6,88 @@
       <h3>Done</h3>
     </div>
     <div class="task-container">
-        <div class="task-scroll-container" ref="toDo">
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
-        </div>
-        <div class="gapline"></div>
-        <div class="task-scroll-container" ref="inProgress">
-          <TaskCard/>
-        </div>
-        <div class="gapline"></div>
-        <div class="task-scroll-container" ref="done">
-        <TaskCard/>
-        </div>
+      <div class="task-scroll-container" ref="toDo">
+        <TaskCard :tasks="toDoTasks" status="To do" />
+      </div>
+      <div class="gapline"></div>
+      <div class="task-scroll-container" ref="inProgress">
+        <TaskCard :tasks="inProgressTasks" status="In progress" />
+      </div>
+      <div class="gapline"></div>
+      <div class="task-scroll-container" ref="done">
+        <TaskCard :tasks="doneTasks" status="Done" />
+      </div>
     </div>
   </div>
-  </template>
-    
-  <script>
-    
-    import TaskCard from '../components/TaskCard.vue'
+</template>
 
-    export default {
-      name: 'TaskContainer',
-      components: {
-      TaskCard
-    }
-    }
-  </script>
-    
-  <style scoped lang="scss">
-    .taskstatus {
-      display: flex;
-      justify-content: space-around;
-      
-    }
+<script>
+import TaskCard from '../components/TaskCard.vue'
+import getAllTasks from "../modules/task.js"
+import { onMounted, ref } from "vue"
 
-    .task-container {
-      display: grid;
-      grid-template-columns: 7fr 1fr  7fr 1fr  7fr;
-      column-gap: 20px;
-    }
+export default {
+  name: 'TaskContainer',
+  components: {
+    TaskCard
+  },
+  setup() {
+    const { taskLoaded, tasks, getTaskByProject } = getAllTasks();
+    const toDoTasks = ref([]);
+    const inProgressTasks = ref([]);
+    const doneTasks = ref([]);
 
-    .task-scroll-container {
-      width: 100%;
-      overflow-y: auto;
-      height: 45%;
-    }
+    onMounted(() => {
+      getTaskByProject();
+      if (tasks && tasks.value) {
+        tasks.value.forEach(task => {
+          if (task.status === "To do") {
+            toDoTasks.value.push(task);
+          } else if (task.status === "In progress") {
+            inProgressTasks.value.push(task);
+          } else if (task.status === "Done") {
+            doneTasks.value.push(task);
+          } else {
+            const a = "potato"
+            console.log(a)
+          }
+        });
+      }
+    });
 
-    .task-scroll-container::-webkit-scrollbar {
-      width: thin; 
-      background: transparent;
-    }
+    return { taskLoaded, toDoTasks, inProgressTasks, doneTasks }
+  }
+}
+</script>
 
-    .gapline {
-      width: 5px;
-      background-color: black;
-      position: relative;
-      left: 10px
-    }
-  </style>
-    
+<style scoped lang="scss">
+.taskstatus {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.task-container {
+  display: grid;
+  grid-template-columns: 7fr 1fr 7fr 1fr 7fr;
+  column-gap: 20px;
+}
+
+.task-scroll-container {
+  width: 100%;
+  overflow-y: auto;
+  height: 45%;
+}
+
+.task-scroll-container::-webkit-scrollbar {
+  width: thin;
+  background: transparent;
+}
+
+.gapline {
+  width: 5px;
+  background-color: black;
+  position: relative;
+  left: 10px
+}
+</style>

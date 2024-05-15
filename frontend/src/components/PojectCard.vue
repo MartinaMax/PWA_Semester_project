@@ -62,7 +62,6 @@ export default {
         store.commit('setProjectId', _id);
         store.commit('setProjectTitle', title);
         store.commit('setCollaborators', collaborators);
-        console.log('Values assigned:', _id, collaborators, title); 
         router.push('/project');
       }
     };
