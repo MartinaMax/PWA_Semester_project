@@ -267,3 +267,12 @@ components:
           - in: path
             name: id
             required: true
+            description: MongoDB id
+            schema:
+              type: string
+
+        responses:
+          200:
+            description: Task deleted successfully.
+          400:
+            description: Bad request, id is wrong or doesn't exist.
