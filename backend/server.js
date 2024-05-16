@@ -4,12 +4,13 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
+const yaml = require('yamljs');
 
 
 //Swagger setup 
 const swaggerDefinition = yaml.load('./swagger.yaml');
 app.use('/api/docs', swaggerUi.serve,  swaggerUi.setup(swaggerDefinition));
+
 // Handles CORS
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
