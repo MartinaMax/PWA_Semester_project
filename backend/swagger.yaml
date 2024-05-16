@@ -216,4 +216,54 @@ components:
     /task:
       post:
         summary: Create new task
-        description: Create new task in the data
+        description: Create new task in the database.
+        security:
+          - ApiKeyAuth: []
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+
+        responses:
+          200:
+            description: Task uploaded successfully.
+          400:
+            description: Bad request, check the body format.
+
+    /task/{id}:
+      put:
+        summary: Update existing task
+        description: Update a task in the database based on task id.
+        security:
+          - ApiKeyAuth: []
+        parameters:
+          - in: path
+            name: id
+            required: true
+            description: MongoDB id
+            schema:
+              type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+
+        responses:
+          200:
+            description: Task updated successfully.
+          400:
+            description: Bad request, id is wrong or doesn't exist.
+
+      delete:
+        summary: Delete existing task
+        description: Delete a task in the database based on its id.
+        security:
+          - ApiKeyAuth: []
+        parameters:
+          - in: path
+            name: id
+            required: true
