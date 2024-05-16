@@ -7,23 +7,23 @@
           <form action="">
             <div class="flex">
               <p class="margin-b-15">Task title*</p>
-              <input type="text" name="title" required>
+              <input type="text" name="title" v-model="task.title" required>
             </div>
             <p class="margin-b-8">Description*</p>
-            <textarea class="margin-b-15">LOrem ipsum</textarea>
+            <textarea class="margin-b-15" v-model="task.description">LOrem ipsum</textarea>
             <div class="flex margin-b-15">
               <p>Start date*</p>
-              <input type="date" name="startDate" required>
+              <input type="date" name="startDate" v-model="task.startDate" required>
             </div>
             <div class="flex margin-b-15">
               <p>End date*</p>
-              <input type="date" name="endDate" required>
+              <input type="date" name="endDate" v-model="task.endDate" required>
             </div>
             <!-- Status dropdown -->
             <div class="flex margin-b-15">
               <p>Status*</p>
               <div class="dropdown-container">
-                <input type="text" placeholder="Choose status" v-model="selectedOption" @click="toggleDropdown" readonly>
+                <input type="text" placeholder="Choose state" v-model="selectedOption" @click="toggleDropdown" readonly>
                 <ul v-if="isDropdownOpen">
                   <li v-for="(option, index) in dropdownOptions" :key="index" @click="selectOption(option)">
                   {{ option }}
@@ -32,50 +32,63 @@
               </div>
             </div>
             <div>
-            <!-- Collaborators checkbox -->
-              <p class="margin-b-8">Collaborators</p>
-              <div class="collaborators">
-                <div v-for="(collaborator, index) in collaborators" :key="index">
-                  <input type="checkbox" :id="'collaborator_' + collaborator.id" :value="collaborator.id" v-model="selectedCollaborators">
-                  <label :for="'collaborator_' + collaborator.id">{{ collaborator.name }}</label><br>
+              <!-- Collaborators checkbox -->
+                <p class="margin-b-8">Collaborators</p>
+                <div class="collaborators margin-b-15">
+                  <div class="collaborators-back" v-for="(collaborator, index) in collab" :key="index">
+                    <input class="custom-checkbox-label" type="checkbox" :id="'collaborator_' + collaborator._id" :value="collaborator._id" v-model="task.collaborators">
+                    <label :for="'collaborator_' + collaborator._id">{{ collaborator.name }}</label>
+                    <label :for="'collaborator_' + collaborator._id">{{ collaborator.email }}</label>
+                  </div>
                 </div>
-              </div>
             </div>
           </form>
-          <!-- Edit button -->
-          <div class="edit-button-container">
-            <button class="edit-button" type="submit" @click="closeModal()">Create</button>
+          <!-- Create button -->
+          <div class="create-button-container">
+            <button class="create-button" type="submit" @click="addTask(task), closeModal()">Create</button>
           </div>
         </div>
-      </div>  
-    </template>
+    </div>  
+</template>
       
-    <script>
-     import { defineComponent } from 'vue';
+<script>
+  import { defineComponent, onMounted } from 'vue';
+  import getAllTasks from '../modules/task.js';
     
     
-      export default defineComponent({
-      name: 'NewTaskModal',
-      props: {
-        isOpen: {
-          type: Boolean,
-          default: false
-        }
-      },
-      setup(props, { emit }) {
-        const closeModal = () => {
-          emit('close');
-        };
+  export default defineComponent({
+    name: 'NewTaskModal',
+    props: {
+      isOpen: {
+        type: Boolean,
+        default: false
+      }
+    },
+    setup(props, { emit }) {
+      const closeModal = () => {
+        emit('close');
+    };
+
+    const { task, addTask, collab, getUsers } = getAllTasks();
+
+    onMounted(() => {
+      getUsers();
+    });
+
+    return {
+      closeModal,
+      task,
+      addTask,
+      getUsers, 
+      collab,
+    };
     
-        return {
-          closeModal
-        };
       },
       data() {
         return {
           isDropdownOpen: false,
           selectedOption: '',
-          dropdownOptions: ['Option 1', 'Option 2', 'Option 3']
+          dropdownOptions: ['To do', 'In progress', 'Done']
         };
       },
       methods: {
@@ -85,7 +98,7 @@
         selectOption(option) {
           this.selectedOption = option;
           this.isDropdownOpen = false; 
-          this.$emit('option-selected', option);
+          this.task.state = option; 
         }
       }
     });
@@ -163,18 +176,29 @@
           background-color: #f0f0f0;
         }
 
-        .close-button-container {
-            display: flex;
-            justify-content: end;
-            cursor: pointer;
+        .collaborators {
+          overflow-y: auto;
+          height: 80px;
         }
     
-        .edit-button-container {
+        .collaborators-back {
+          background-color: var(--white);
+          display: flex;
+          gap: 75px;
+        }
+    
+        .close-button-container {
+          display: flex;
+          justify-content: end;
+          cursor: pointer;
+        }
+    
+        .create-button-container {
             display: flex;
             justify-content: center;
           }
     
-        .edit-button {
+        .create-button {
             border: none;
             background-color: var(--light-green);
             font-size: 18px;

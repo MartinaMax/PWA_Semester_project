@@ -31,7 +31,7 @@ const getAllProjects = () => {
         const day = String(date.getDate()).padStart(2, "0");
         return `${day}.${month}.${year}`;
     };
-
+    
     const getUserById = async () => {
         try {
             const response = await fetch(`${baseURL}/api/users/` + userId, {
@@ -202,7 +202,7 @@ const getAllProjects = () => {
     }
 
 
-    return { project, projects,  projectLoaded, getProjectbyID, addProject, deleteProject, editProject, getUsers, collab };
+    return { project, projects, projectLoaded, getProjectbyID, addProject, deleteProject, editProject, getUsers, collab };
 };
 
 export default getAllProjects;

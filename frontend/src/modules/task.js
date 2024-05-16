@@ -9,6 +9,7 @@ const getAllTasks = () => {
     const projectId = store.getters.getProjectId;
     const authToken = store.getters.getToken;
     const tasks = ref([]);
+    const collab = ref([]);
     const taskLoaded = ref(false);
 
     const formatDate = (dateString) => {
@@ -27,7 +28,7 @@ const getAllTasks = () => {
         endDate: "",
         state: "",
         author: userId,
-        collaborators: "",
+        collaborators: [],
         project: ""
     };
 
@@ -40,6 +41,22 @@ const getAllTasks = () => {
             });
             const userData = await response.json();
             return userData.name;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    };
+
+    const getUsers = async () => {
+        try {
+            const response = await fetch(`${baseURL}/api/users/`, {
+                headers: {
+                    'auth-token': authToken
+                }
+            });
+            const data = await response.json();
+            collab.value = data;
+            console.log('Collaborators:', collab.value);
         } catch (error) {
             console.error(error);
             return null;
@@ -85,8 +102,50 @@ const getAllTasks = () => {
         }
     };
 
+    //post new task
+    const addTask = () => {
 
-    return { getTaskByProject, tasks };
+        // Parse startDate and endDate strings into Date objects
+       const startDate = task.value.startDate ? new Date(task.value.startDate) : null;
+        const endDate = task.value.endDate ? new Date(task.value.endDate) : null;
+
+        const requestOption = {
+            method: "Post",
+            headers: {
+                'auth-token': authToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: task.value.title,
+                description: task.value.description,
+                startDate: startDate ? startDate.toISOString() : null,
+                endDate: endDate ? endDate.toISOString() : null,
+                state: task.value.state,
+                author: task.value.author,
+                collaborators: task.value.collaborators,
+            })
+        };
+        fetch(`${baseURL}/api/task`, requestOption)
+            .then(response => {
+                if (!response.ok) {
+                    window.alert('Failed to add new task. Please try again.');
+                } else {
+                    window.alert('New task added successfully!');
+                }
+                return response.json();
+            })
+            // .then(() => {
+            //     getTaskByProject();
+            // })
+            .catch(error => {
+                console.error('Error adding task:', error);
+                window.alert('Failed to add new task. Please try again.');
+            });
+    };
+
+
+
+    return { getTaskByProject, tasks, collab, getUsers, addTask, task};
 }
 
 export default getAllTasks;
