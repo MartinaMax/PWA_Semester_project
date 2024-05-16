@@ -115,7 +115,7 @@ paths:
           required: true
           description: MongoDB id
           schema:
-            type: integer
+            type: string
 
       responses:
         200:
@@ -138,7 +138,7 @@ paths:
           required: true
           description: MongoDB id
           schema:
-            type: integer
+            type: string
       requestBody:
         required: true
         content:
@@ -163,7 +163,7 @@ paths:
           required: true
           description: MongoDB id
           schema:
-            type: integer
+            type: string
 
       responses:
         200:
@@ -202,7 +202,7 @@ paths:
           required: true
           description: MongoDB id
           schema:
-            type: integer
+            type: string
 
       responses:
         200:
@@ -245,7 +245,7 @@ paths:
           required: true
           description: MongoDB id
           schema:
-            type: integer
+            type: string
       requestBody:
         required: true
         content:
@@ -270,7 +270,7 @@ paths:
           required: true
           description: MongoDB id
           schema:
-            type: integer
+            type: string
 
       responses:
         200:
