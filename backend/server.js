@@ -3,10 +3,15 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 
 
+//Swagger setup 
+const swaggerDefinition = yaml.load('./swagger.yaml');
+app.use('/api/docs', swaggerUi.serve,  swaggerUi.setup(swaggerDefinition));
 // Handles CORS
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,PUT,POST,DELETE");
     res.header("Access-Control-Allow-Headers", "auth-token, Origin, X-Requested-With, Content-Type, Accept");
@@ -26,14 +31,14 @@ require("dotenv-flow").config();
 app.use(bodyParser.json());
 
 mongoose.set('strictQuery', false);
-mongoose.connect 
-(
-    process.env.DBHOST,
-    {
-        useUnifiedTopology: true,
-        useNewUrlParser: true
-    }
-).catch(error => console.log("Error connecting to MongoDB database:" + error ));
+mongoose.connect
+    (
+        process.env.DBHOST,
+        {
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        }
+    ).catch(error => console.log("Error connecting to MongoDB database:" + error));
 
 mongoose.connection.once("open", () => console.log("Connected succesfully to MongoDB"))
 
@@ -41,7 +46,7 @@ mongoose.connection.once("open", () => console.log("Connected succesfully to Mon
 
 // CRUD routes
 app.get("/api/welcome", (req, res) => {
-    res.status(200).send({message: "Welcome to the Kanban board"});
+    res.status(200).send({ message: "Welcome to the Kanban board" });
 })
 
 app.use("/api/project", projectRoutes);
@@ -51,7 +56,7 @@ app.use("/api/users", userRoute)
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log("Server is running on port:" + PORT);
 })
 

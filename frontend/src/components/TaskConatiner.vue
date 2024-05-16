@@ -43,10 +43,13 @@ export default {
         tasks.value.forEach(task => {
           if (task.state === "To do") {
             toDoTasks.value.push(task);
+            console.log(toDoTasks);
           } else if (task.state === "In progress") {
             inProgressTasks.value.push(task);
+            console.log(inProgressTasks);
           } else if (task.state === "Done") {
             doneTasks.value.push(task);
+            console.log(doneTasks);
           } else {
             const a = "potato"
             console.log(a)
