@@ -214,26 +214,6 @@ paths:
                 items:
                   $ref: "#/components/schemas/Task"
 
-  /task:
-    post:
-      summary: Create new task
-      description: Create new task in the database.
-      security:
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Task"
-
-      responses:
-        200:
-          description: Task uploaded successfully.
-        400:
-          description: Bad request, check the body format.
-
-  /task/{id}:
     put:
       summary: Update existing task
       description: Update a task in the database based on task id.
@@ -277,3 +257,22 @@ paths:
           description: Task deleted successfully.
         400:
           description: Bad request, id is wrong or doesn't exist.
+
+  /task:
+    post:
+      summary: Create new task
+      description: Create new task in the database.
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+
+      responses:
+        200:
+          description: Task uploaded successfully.
+        400:
+          description: Bad request, check the body format.
