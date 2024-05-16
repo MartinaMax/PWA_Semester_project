@@ -146,7 +146,7 @@ export default defineComponent({
       top: 100%;
       right: 0;
       list-style-type: none;
-      background-color: #fff;
+      background-color: var(--white);
     }
     
     .dropdown-container > ul > li {
@@ -155,7 +155,7 @@ export default defineComponent({
     }
     
     .dropdown-container > ul > li:hover {
-      background-color: #f0f0f0;
+      background-color:var(--light-green);
     }
 
     .close-button-container {
