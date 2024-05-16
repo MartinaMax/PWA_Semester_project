@@ -111,7 +111,7 @@ paths:
         - ApiKeyAuth: []
       parameters:
         - in: path
-          name: userID
+          name: id
           required: true
           description: MongoDB id
           schema:
@@ -190,7 +190,7 @@ paths:
         400:
           description: Bad request, check the body format.
 
-  /task/{project}:
+  /task/{id}:
     get:
       summary: Get task based on project id
       description: Get array of tasks assigned to project id.
@@ -198,7 +198,7 @@ paths:
         - ApiKeyAuth: []
       parameters:
         - in: path
-          name: project
+          name: id
           required: true
           description: MongoDB id
           schema:
