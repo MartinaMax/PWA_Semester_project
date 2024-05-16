@@ -1,7 +1,10 @@
 <template>
   <nav class="sidenav">
+    <!-- Logo -->
     <img src="@/assets/logo.png" alt="Logo image" class="margin-b-50">
+    <!-- Dashboard link -->
     <router-link to="/dashboard"><h3>Dashboard</h3></router-link>
+    <!-- Account section -->
     <div class="account-section">
       <div class="center">
         <img src="../assets/avatar.png" alt="Profile photo" class="avatar-img">
@@ -13,13 +16,13 @@
 </template>
   
 <script>
-import logout from "../modules/logout"
-  export default {
-    name: 'SideNav',
+  import logout from "../modules/logout"
+    export default {
+      name: 'SideNav',
 
-    setup() {
-      const { LogOUT } = logout()
-      return { LogOUT };
+      setup() {
+        const { LogOUT } = logout()
+        return { LogOUT };
     }
   }
 </script>
@@ -72,8 +75,7 @@ import logout from "../modules/logout"
     font-weight: bold;
     transition: 0.5s;
   }
-
-
+  
   .m-t-40{
     margin-top: 40px;
   }

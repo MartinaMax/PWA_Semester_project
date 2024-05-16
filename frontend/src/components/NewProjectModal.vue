@@ -1,6 +1,7 @@
 <template>
 <div class="modal-background" v-if="isOpen" @click.self="closeModal()">
     <div  class="editmodal">
+      <!-- Close button -->
       <div class="close-button-container"><img @click="closeModal()" src="../assets/close-icon.svg" alt=""> </div>
       <h3 class="margin-b-30 textcenter">New project</h3>
       <!-- Form -->
@@ -43,7 +44,7 @@
           </div>
         </div>
       </form>
-      <!-- Edit button -->
+      <!-- Create button -->
       <div class="create-button-container">
         <button class="create-button" type="submit" @click="addProject(project); closeModal()">Create</button>
       </div>
@@ -74,7 +75,6 @@
       getUsers();
     });
 
-
     return {
       closeModal,
       project, 
@@ -83,7 +83,6 @@
       collab,
     };
 
-    
   },
   data() {
     return {
@@ -120,90 +119,90 @@
     padding: 50px 0;
   }
   
-    .editmodal {
-      width: 750px;
-      padding: 50px 50px;
-      background-color: var(--light-grey);
-    }
+  .editmodal {
+    width: 750px;
+    padding: 50px 50px;
+    background-color: var(--light-grey);
+  }
   
-    .textcenter {
-      text-align: center;
-    }
+  .textcenter {
+    text-align: center;
+  }
 
-    input, textarea {
-      border: none;
-    }
+  input, textarea {
+    border: none;
+  }
 
-    input {
-      height: 30px;
-      margin-left: 15px;
-    }
+  input {
+    height: 30px;
+    margin-left: 15px;
+  }
 
-    textarea {
-      width: 650px;
-      height: 80px;
-    }
+  textarea {
+    width: 650px;
+    height: 80px;
+  }
 
-    .flex {
-      display: flex;
-    }
+  .flex {
+    display: flex;
+  }
 
-    .dropdown-container {
-      position: relative;
-    }
+  .dropdown-container {
+    position: relative;
+  }
 
-    .dropdown-container > input {
-      position: relative;
-      cursor: pointer;
-      padding-left: 8px;
-    }
+  .dropdown-container > input {
+    position: relative;
+    cursor: pointer;
+    padding-left: 8px;
+  }
     
-    .dropdown-container > ul {
-      text-align: center;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      list-style-type: none;
-      background-color: var(--white);
-    }
+  .dropdown-container > ul {
+    text-align: center;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    list-style-type: none;
+    background-color: var(--white);
+  }
     
-    .dropdown-container > ul > li {
-      padding: 8px 50px;
-      cursor: pointer;
-    }
+  .dropdown-container > ul > li {
+    padding: 8px 50px;
+    cursor: pointer;
+  }
     
-    .dropdown-container > ul > li:hover {
-      background-color: var(--light-green);
-    }
+  .dropdown-container > ul > li:hover {
+    background-color: var(--light-green);
+  }
 
-    .collaborators {
-      overflow-y: auto;
-      height: 80px;
-    }
+  .collaborators {
+    overflow-y: auto;
+    height: 80px;
+  }
 
-    .collaborators-back {
-      background-color: var(--white);
-      display: flex;
-      gap: 75px;
-    }
+  .collaborators-back {
+    background-color: var(--white);
+    display: flex;
+    gap: 75px;
+  }
 
-    .close-button-container {
-      display: flex;
-      justify-content: end;
-      cursor: pointer;
-    }
+  .close-button-container {
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+  }
 
-    .create-button-container {
-        display: flex;
-        justify-content: center;
-      }
+  .create-button-container {
+    display: flex;
+    justify-content: center;
+  }
 
-    .create-button {
-        border: none;
-        background-color: var(--light-green);
-        font-size: 18px;
-        width: 180px;
-        height: 40px;
-        cursor: pointer;
+  .create-button {
+    border: none;
+    background-color: var(--light-green);
+    font-size: 18px;
+    width: 180px;
+    height: 40px;
+    cursor: pointer;
     }
 </style>

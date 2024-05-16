@@ -1,13 +1,14 @@
 <template>
   <div class="modal-background" v-if="isOpen" @click.self="closeModal()">
     <div class="editmodal" >
+      <!-- Close button -->
       <div class="close-button-container"><img @click="closeModal()" src="../assets/close-icon.svg" alt=""> </div>
       <h3 class="margin-b-30 textcenter">Edit project</h3>
       <!-- Form -->
       <form action="">
         <div class="flex">
           <p class="margin-b-15">Project title*</p>
-          <input type="text" name="title" :placeholder="projectTitle" v-model="project.title" required >
+          <input type="text" name="title" :placeholder="projectTitle" :id="'title'" v-model="project.title" required >
         </div>
         <p class="margin-b-8">Description*</p>
         <textarea class="margin-b-15" v-model="project.description">LOrem ipsum</textarea>
@@ -37,7 +38,8 @@
           <div class="collaborators">
             <div v-for="(collaborator, index) in collaborators" :key="index">
               <input type="checkbox" :id="'collaborator_' + collaborator.id" :value="collaborator.id" v-model="selectedCollaborators">
-              <label :for="'collaborator_' + collaborator.id">{{ collaborator.name }}</label><br>
+              <label :for="'collaborator_' + collaborator.id">{{ collaborator.name }}</label>
+              <label :for="'collaborator_' + collaborator.id">{{ collaborator.email}}</label>
             </div>
           </div>
         </div>
@@ -116,79 +118,79 @@
     padding: 50px 0;
   }
   
-    .editmodal {
-      width: 750px;
-      padding: 50px 50px;
-      background-color: var(--light-grey);
-    }
+  .editmodal {
+    width: 750px;
+    padding: 50px 50px;
+    background-color: var(--light-grey);
+  }
   
-    .textcenter {
-      text-align: center;
-    }
+  .textcenter {
+    text-align: center;
+  }
 
-    input, textarea {
-      border: none;
-    }
+  input, textarea {
+    border: none;
+  }
 
-    input {
-      height: 30px;
-      margin-left: 15px;
-    }
+  input {
+    height: 30px;
+    margin-left: 15px;
+  }
 
-    textarea {
-      width: 650px;
-      height: 100px;
-    }
+  textarea {
+    width: 650px;
+    height: 100px;
+  }
 
-    .flex {
-      display: flex;
-    }
+  .flex {
+    display: flex;
+  }
 
-    .dropdown-container {
-      position: relative;
-    }
+  .dropdown-container {
+    position: relative;
+  }
 
-    .dropdown-container > input {
-      position: relative;
-      cursor: pointer;
-      padding-left: 8px;
-    }
+  .dropdown-container > input {
+    position: relative;
+    cursor: pointer;
+    padding-left: 8px;
+  }
     
-    .dropdown-container > ul {
-      text-align: center;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      list-style-type: none;
-      background-color: var(--white);
-    }
+  .dropdown-container > ul {
+    text-align: center;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    list-style-type: none;
+    background-color: var(--white);
+  }
     
-    .dropdown-container > ul > li {
-      padding: 8px 50px;
-      cursor: pointer;
-    }
+  .dropdown-container > ul > li {
+    padding: 8px 50px;
+    cursor: pointer;
+  }
     
-    .dropdown-container > ul > li:hover {
-      background-color: var(--light-green);
-    }
+  .dropdown-container > ul > li:hover {
+    background-color: var(--light-green);
+  }
 
-    .close-button-container {
-      display: flex;
-      justify-content: end;
-      cursor: pointer;
-    }
+  .close-button-container {
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+  }
 
-    .edit-button-container {
-        display: flex;
-        justify-content: center;
-      }
+  .edit-button-container {
+    display: flex;
+    justify-content: center;
+  }
 
-    .edit-button {
-        border: none;
-        background-color: var(--light-green);
-        font-size: 18px;
-        width: 180px;
-        height: 40px;
-        cursor: pointer;
-    }
+  .edit-button {
+    border: none;
+    background-color: var(--light-green);
+    font-size: 18px;
+    width: 180px;
+    height: 40px;
+    cursor: pointer;
+  }
 </style>

@@ -1,13 +1,12 @@
 <template>
-    <div>
-       <!-- Breadcrumbs -->
-      <h1 class="margin-b-15"> {{ projectTitle }}</h1>
-      <div class="task margin-b-50">
-        <p class="project-collab"> {{ collaborators }}</p>
-       <button @click="openModal()">New task</button>
+  <div>
+    <h1 class="margin-b-15"> {{ projectTitle }}</h1>
+    <div class="task margin-b-50">
+       <p class="project-collab"> {{ collaborators }}</p>
+      <button @click="openModal()">New task</button>
       <NewTaskModal  :is-open="modalOpen" @close="modalOpen = false"/>
-      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -20,22 +19,22 @@
     NewTaskModal
   },
   data() {
-  return {
-    modalOpen: false
-  };
-},
-computed: {
-  ...mapState(['projectTitle', 'collaborators'])
-},
-created() {
-  console.log('projectTitle:', this.projectTitle);
-  console.log('collaborators:', this.collaborators);
-},
-methods: {
+    return {
+      modalOpen: false
+    };
+  },
+  computed: {
+    ...mapState(['projectTitle', 'collaborators'])
+  },
+  created() {
+    console.log('projectTitle:', this.projectTitle);
+    console.log('collaborators:', this.collaborators);
+  },
+  methods: {
   openModal() {
     this.modalOpen = true;
   }
-}
+  }
   }
 </script>
 
