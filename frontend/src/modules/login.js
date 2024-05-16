@@ -1,6 +1,6 @@
-import { ref } from "vue"
-import { useRouter } from 'vue-router'
-import store from '../store/store';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import store from "../store/store";
 
 const baseURL = `https://pwa-semester-project.onrender.com`;
 
@@ -14,7 +14,6 @@ const login = () => {
 
   const router = useRouter();
 
-
   const LogIN = () => {
     const requestOptions = {
       method: "POST",
@@ -27,21 +26,23 @@ const login = () => {
       }),
     };
 
-    fetch(`${baseURL}/api/user/login`, requestOptions).then(async (response) => {
-      if (response.ok) {
-        const data = await response.json();
-        const userId = data.data.userid;
-        const authToken = data.data.token;
-        store.commit('setUserId', userId);
-        store.commit('setToken', authToken);
-        
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('authToken', authToken);
-        router.push({ path: '/dashboard'});
-      } else {
-        alert("401:Invalid email or password");
+    fetch(`${baseURL}/api/user/login`, requestOptions).then(
+      async (response) => {
+        if (response.ok) {
+          const data = await response.json();
+          const userId = data.data.userid;
+          const authToken = data.data.token;
+          store.commit("setUserId", userId);
+          store.commit("setToken", authToken);
+
+          localStorage.setItem("userId", userId);
+          localStorage.setItem("authToken", authToken);
+          router.push({ path: "/dashboard" });
+        } else {
+          alert("401:Invalid email or password");
+        }
       }
-    });
+    );
   };
 
   return {

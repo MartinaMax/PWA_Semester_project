@@ -1,4 +1,4 @@
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const logout = () => {
   const router = useRouter();
@@ -10,11 +10,11 @@ const logout = () => {
   const LogOUT = () => {
     deleteToken();
 
-    router.push('/');
+    router.push("/");
   };
 
   return {
-    LogOUT
+    LogOUT,
   };
 };
 
