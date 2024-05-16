@@ -17,12 +17,14 @@
       <div class="task-scroll-container">
         <TaskCard :tasks="done" />
       </div>
+      <TaskCard />
     </div>
+
   </div>
 </template>
 
 <script>
-import TaskCard from '../components/TaskCard.vue'
+import TaskCard from './TaskCard.vue'
 import getAllTasks from "../modules/task.js"
 import { ref, computed } from "vue"
 
