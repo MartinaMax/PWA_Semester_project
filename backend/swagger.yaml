@@ -67,7 +67,6 @@ components:
           type: string
         password:
           type: string
-
   paths:
     /user/register:
       post:
