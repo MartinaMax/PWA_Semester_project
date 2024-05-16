@@ -276,3 +276,43 @@ paths:
           description: Task uploaded successfully.
         400:
           description: Bad request, check the body format.
+
+  /users:
+    get:
+      summary: Get all users
+      description: Get all users from database as JSON objects.
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: Retrieves all users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /users/{id}:
+    get:
+      summary: Get user based on user id
+      description: Get user object based on assigned id.
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: Retrieves user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
