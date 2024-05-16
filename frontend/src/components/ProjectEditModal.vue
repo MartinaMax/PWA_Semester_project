@@ -1,27 +1,27 @@
 <template>
   <div class="modal-background" v-if="isOpen" @click.self="closeModal()">
-    <div class="editmodal">
+    <div class="editmodal" >
       <div class="close-button-container"><img @click="closeModal()" src="../assets/close-icon.svg" alt=""> </div>
       <h3 class="margin-b-30 textcenter">Edit project</h3>
       <!-- Form -->
       <form action="">
         <div class="flex">
-          <p class="margin-b-15">Project title</p>
-          <input type="text" name="title"  v-model="project.title" required>
+          <p class="margin-b-15">Project title*</p>
+          <input type="text" name="title" :placeholder="projectTitle" v-model="project.title" required >
         </div>
-        <p class="margin-b-8">Description</p>
-        <textarea class="margin-b-15"  v-model="project.description">LOrem ipsum</textarea>
+        <p class="margin-b-8">Description*</p>
+        <textarea class="margin-b-15"    v-model="project.description">LOrem ipsum</textarea>
         <div class="flex margin-b-15">
-          <p>Start date</p>
-          <input type="date" name="startDate"  v-model="project.startDate" required>
+          <p>Start date*</p>
+          <input type="date" name="startDate"   v-model="project.startDate" required>
         </div>
         <div class="flex margin-b-15">
-          <p>End date</p>
+          <p>End date*</p>
           <input type="date" name="endDate"  v-model="project.endDate" required>
         </div>
         <!-- Status dropdown -->
         <div class="flex margin-b-15">
-          <p>Status</p>
+          <p>Status*</p>
           <div class="dropdown-container">
             <input type="text" placeholder="Choose status" v-model="selectedOption" @click="toggleDropdown" readonly>
             <ul v-if="isDropdownOpen">
@@ -51,9 +51,9 @@
 </template>
   
 <script>
- import { defineComponent } from 'vue';
+ import { defineComponent,  } from 'vue';
  import getAllProjects from '../modules/project.js';
-
+ import { mapState } from 'vuex';
 
     export default defineComponent({
       name: 'ProjectEditModal',
@@ -63,12 +63,23 @@
       default: false
     }
   },
+  computed: {
+  ...mapState(['projectTitle', 'projectDescription'])
+},
+  created() {
+    console.log('projectTitle:', this.projectTitle);
+    console.log('projectDescription:', this.projectDescription);
+  },
   setup(props, { emit }) {
     const closeModal = () => {
       emit('close');
     };
 
-    const { project, editProject } = getAllProjects();
+    const { project,  editProject,  } = getAllProjects();
+
+    // onMounted((projects) => {
+    //   getProjectbyID(projects);
+    // });
 
     return {
       closeModal,

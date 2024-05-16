@@ -24,7 +24,7 @@
 
 <script>
 import TaskModal from '../components/TaskModal.vue'
-import TaskEditModal from '../components/TaskEditModal'
+import TaskEditModal from '../components/TaskEditModal.vue'
 import { ref, watch } from "vue"
 import getAllTasks from '@/modules/task'
 
@@ -54,6 +54,8 @@ export default {
     };
 
     watch(() => props.tasks, (newTasks) => {
+      console.log('All tasks:', newTasks);
+      console.log('Filtered tasks:', newTasks.filter(task => task.state === props.state));
       filteredTasks.value = newTasks.filter(task => task.state === props.state);
       taskLoaded.value = true; 
     });
