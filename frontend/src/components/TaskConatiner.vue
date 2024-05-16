@@ -7,15 +7,15 @@
     </div>
     <div class="task-container">
       <div class="task-scroll-container">
-        <TaskCard :tasks="toDoTasks" state="To do" />
+        <TaskCard :tasks="toDo" />
       </div>
       <div class="gapline"></div>
       <div class="task-scroll-container">
-        <TaskCard :tasks="inProgressTasks" state="In progress" />
+        <TaskCard :tasks="inProgress" />
       </div>
       <div class="gapline"></div>
-      <div class="task-scroll-container" >
-        <TaskCard :tasks="doneTasks" state="Done" />
+      <div class="task-scroll-container">
+        <TaskCard :tasks="done" />
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
 <script>
 import TaskCard from '../components/TaskCard.vue'
 import getAllTasks from "../modules/task.js"
-import { ref } from "vue"
+import { ref, computed } from "vue"
 
 export default {
   name: 'TaskContainer',
@@ -32,35 +32,45 @@ export default {
     TaskCard
   },
   setup() {
-    const { tasks, getTaskByProject } = getAllTasks();
+    const { getTaskByProject, tasks } = getAllTasks();
     const toDoTasks = ref([]);
     const inProgressTasks = ref([]);
     const doneTasks = ref([]);
 
-    const categorizeTasks = () => {
-      tasks.value.forEach(task => {
-        if (task.state === "To do") {
-          toDoTasks.value.push(task);
-          console.log(toDoTasks);
-        } else if (task.state === "In progress") {
-          inProgressTasks.value.push(task);
-          console.log(inProgressTasks);
-        } else if (task.state === "Done") {
-          doneTasks.value.push(task);
-          console.log(doneTasks);
-        } else {
-          const a = "potato"
-          console.log(a)
-        }
-      });
-    
-    };
-    
-      getTaskByProject();
-      categorizeTasks(tasks);
- 
+    async function filter() {
+      await getTaskByProject();
+      console.log("Tasks fetched:", tasks.value)
+      const test = tasks.value
+      if (tasks.value && tasks.value.length > 0) {
+        test.forEach(task => {
+          if (task.state === "To do") {
+            toDoTasks.value.push(task);
+          } else if (task.state === "In progress") {
+            inProgressTasks.value.push(task);
+          } else if (task.state === "Done") {
+            doneTasks.value.push(task);
+          } else {
+            const a = "potato"
+            console.log(a)
+          }
+        });
+        console.log(done, inProgress, toDo);
+      }
+    }
 
-    return { toDoTasks, inProgressTasks, doneTasks };
+    const toDo = computed(() => {
+      return toDoTasks.value;
+    });
+    const inProgress = computed(() => {
+      return inProgressTasks.value;
+    });
+    const done = computed(() => {
+      return doneTasks.value;
+    });
+
+    filter()
+
+    return { toDo, inProgress, done }
   }
 }
 </script>
