@@ -75,6 +75,8 @@
       getUsers();
     });
 
+    console.log(task)
+
     return {
       closeModal,
       task,
@@ -164,8 +166,8 @@
           top: 100%;
           right: 0;
           list-style-type: none;
-          background-color: #fff;
-        }
+          background-color: var(--white);
+        }    
         
         .dropdown-container > ul > li {
           padding: 8px 50px;
@@ -173,8 +175,8 @@
         }
         
         .dropdown-container > ul > li:hover {
-          background-color: #f0f0f0;
-        }
+          background-color: var(--light-green);
+        }    
 
         .collaborators {
           overflow-y: auto;

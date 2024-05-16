@@ -29,7 +29,7 @@ const getAllTasks = () => {
         state: "",
         author: userId,
         collaborators: [],
-        project: ""
+        project: projectId,
     });
 
     const getUserById = async () => {
@@ -123,6 +123,7 @@ const getAllTasks = () => {
                 state: task.value.state,
                 author: task.value.author,
                 collaborators: task.value.collaborators,
+                project: task.value.project
             })
         };
         fetch(`${baseURL}/api/task`, requestOption)
