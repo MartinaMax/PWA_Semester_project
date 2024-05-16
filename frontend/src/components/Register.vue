@@ -62,7 +62,7 @@ export default {
   margin-bottom: 15px;
   text-align: center;
   border: none;
-  background-color: white;
+  background-color: var(--white);
 }
 
 .password-input {
@@ -86,7 +86,7 @@ export default {
 }
 
 .title {
-  color: white;
+  color: var(--white);
   text-align: center;
 }
 

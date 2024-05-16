@@ -30,7 +30,7 @@ import logout from "../modules/logout"
     width: 250px;
     padding: 50px 15px;
     background-color: var(--dark-green);
-    color: white;
+    color: var(--white);
   }
 
   .sidenav > a {

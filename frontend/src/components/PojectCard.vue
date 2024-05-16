@@ -53,6 +53,7 @@ export default {
       if (_id) {
         modalOpen.value = true;
         store.commit('setProjectId', _id);
+        console.log
       } else {
         modalOpen.value = true;
       }
