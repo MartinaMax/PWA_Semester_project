@@ -25,7 +25,8 @@
 <script>
 import TaskModal from '../components/TaskModal.vue'
 import TaskEditModal from '../components/TaskEditModal'
-import { ref } from "vue"
+import { ref, watch } from "vue"
+import getAllTasks from '@/modules/task'
 
 export default {
   name: 'TaskCard',
@@ -35,15 +36,12 @@ export default {
   },
   props: {
     tasks: Array,
-    status: String
+    state: String
   },
-setup(props) {
-    const taskLoaded = ref(true); 
-
+  setup(props) {
+    const taskLoaded = ref(true);
     const filteredTasks = ref([]);
-
-    filteredTasks.value = props.tasks.filter(task => task.status === props.status);
-
+    const { task } = getAllTasks()
     const modalOpen = ref(false);
     const editmodalOpen = ref(false);
 
@@ -55,7 +53,12 @@ setup(props) {
       editmodalOpen.value = true;
     };
 
-    return { taskLoaded, filteredTasks, modalOpen, editmodalOpen, openModal, openEditModal }
+    watch(() => props.tasks, (newTasks) => {
+      filteredTasks.value = newTasks.filter(task => task.state === props.state);
+      taskLoaded.value = true; 
+    });
+
+    return { taskLoaded, task, filteredTasks, modalOpen, editmodalOpen, openModal, openEditModal }
   }
 }
 

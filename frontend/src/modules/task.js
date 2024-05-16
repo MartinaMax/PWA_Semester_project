@@ -71,7 +71,7 @@ const getAllTasks = () => {
                         description: task.description,
                         startDate: formatDate(task.startDate),
                         endDate: formatDate(task.endDate),
-                        status: task.status,
+                        state: task.state,
                         author: authorName,
                     })));
                     console.log("Tasks fetched successfully:", tasks.value);
@@ -86,7 +86,7 @@ const getAllTasks = () => {
     };
 
 
-    return { getTaskByProject };
+    return { getTaskByProject, tasks };
 }
 
 export default getAllTasks;

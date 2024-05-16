@@ -7,15 +7,15 @@
     </div>
     <div class="task-container">
       <div class="task-scroll-container" ref="toDo">
-        <TaskCard :tasks="toDoTasks" status="To do" />
+        <TaskCard :tasks="toDoTasks" state="To do" />
       </div>
       <div class="gapline"></div>
       <div class="task-scroll-container" ref="inProgress">
-        <TaskCard :tasks="inProgressTasks" status="In progress" />
+        <TaskCard :tasks="inProgressTasks" state="In progress" />
       </div>
       <div class="gapline"></div>
       <div class="task-scroll-container" ref="done">
-        <TaskCard :tasks="doneTasks" status="Done" />
+        <TaskCard :tasks="doneTasks" state="Done" />
       </div>
     </div>
   </div>
@@ -32,20 +32,20 @@ export default {
     TaskCard
   },
   setup() {
-    const { taskLoaded, tasks, getTaskByProject } = getAllTasks();
+    const { tasks, getTaskByProject } = getAllTasks();
     const toDoTasks = ref([]);
     const inProgressTasks = ref([]);
     const doneTasks = ref([]);
 
-    onMounted(() => {
-      getTaskByProject();
+    onMounted(async () => {
+      await getTaskByProject();
       if (tasks && tasks.value) {
         tasks.value.forEach(task => {
-          if (task.status === "To do") {
+          if (task.state === "To do") {
             toDoTasks.value.push(task);
-          } else if (task.status === "In progress") {
+          } else if (task.state === "In progress") {
             inProgressTasks.value.push(task);
-          } else if (task.status === "Done") {
+          } else if (task.state === "Done") {
             doneTasks.value.push(task);
           } else {
             const a = "potato"
@@ -55,7 +55,7 @@ export default {
       }
     });
 
-    return { taskLoaded, toDoTasks, inProgressTasks, doneTasks }
+    return { toDoTasks, inProgressTasks, doneTasks}
   }
 }
 </script>
