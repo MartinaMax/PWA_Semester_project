@@ -23,7 +23,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
   .dashboardview{
     display: flex;
     height: 100vh;

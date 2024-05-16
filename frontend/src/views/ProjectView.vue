@@ -23,7 +23,7 @@
     }
   </script>
   
-  <style scoped lang="scss">
+  <style scoped>
     .projectview{
       display: flex;
       height: 100vh;

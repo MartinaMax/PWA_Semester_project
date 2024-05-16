@@ -11,9 +11,6 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/DashboardView.vue')
   },
   {
@@ -23,11 +20,7 @@ const routes = [
       store.commit('clearProject');
       next();
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "dashboard" */ '../views/ProjectView.vue')
-
+    component: () => import(/* webpackChunkName: "project" */ '../views/ProjectView.vue')
   }
 ]
 

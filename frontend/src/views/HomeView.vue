@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import TaskModal from '../components/TaskModal.vue'
+  import TaskModal from '../components/TaskModal.vue'
 
-export default {
+  export default {
     name: 'DashboardView',
     components: {
       TaskModal

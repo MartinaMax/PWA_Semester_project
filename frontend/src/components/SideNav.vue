@@ -66,7 +66,7 @@
     width: auto;
     font-size: 18px;
     background-color: var(--light-green);
-    color: black;
+    color: #232323;
     border: none;
     cursor: pointer;
   }

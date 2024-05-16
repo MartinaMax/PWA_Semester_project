@@ -77,7 +77,7 @@
     width: 400px;
     height: 40px;
     text-align: center;
-    color: black;
+    color:#232323;
     background-color: var(--light-green);
     border: none;
     cursor: pointer;

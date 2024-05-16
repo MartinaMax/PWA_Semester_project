@@ -12,22 +12,22 @@
 <script>
   import NewProjectModal from '../components/NewProjectModal.vue'
 
-export default {
-  name: 'DashboardHeader',
-  components: {
-    NewProjectModal
-  },
-  data() {
-  return {
-    modalOpen: false
-  };
-},
-methods: {
-  openModal() {
-    this.modalOpen = true;
+    export default {
+    name: 'DashboardHeader',
+    components: {
+      NewProjectModal
+    },
+    data() {
+      return {
+        modalOpen: false
+      };
+    },
+    methods: {
+      openModal() {
+        this.modalOpen = true;
+      }
+    }
   }
-}
-}
 </script>
 
 <style scoped>

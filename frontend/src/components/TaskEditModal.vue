@@ -1,8 +1,10 @@
 <template>
   <div class="modal-background" v-if="isModalOpen" @click.self="closeEditModal()">
     <div class="editmodal">
+      <!-- Close button -->
       <div class="close-button-container"><img @click="closeEditModal()" src="../assets/close-icon.svg" alt="" class="close-icon"> </div>
       <h3 class="margin-b-30 textcenter">Edit task</h3>
+      <!-- Form -->
       <form action="">
         <div class="flex">
           <p class="margin-b-15">Task name</p>
@@ -18,6 +20,7 @@
           <p>End date</p>
           <input type="date" name="endDate" required>
         </div>
+        <!-- State dropdown -->
         <div class="flex margin-b-15">
           <p>Status</p>
           <div class="dropdown-container">
@@ -29,6 +32,7 @@
             </ul>
           </div>
         </div>
+        <!-- Collaborators checkbox -->
         <div class="margin-b-30">
           <p class="margin-b-8">Collaborators</p>
           <div class="collaborators">
@@ -39,6 +43,7 @@
           </div>
         </div>
       </form>
+      <!-- Edit button -->
       <div class="edit-button-container">
         <button class="edit-button" type="submit" @click="closeEditModal()">Edit</button>
       </div>
@@ -50,44 +55,44 @@
   import { defineComponent } from 'vue';
 
 
-export default defineComponent({
-  name: 'TaskEditModal',
-  props: {
-  isModalOpen: {
-  type: Boolean,
-  default: false
-}
-  },
-  setup(props, { emit }) {
-  const closeEditModal = () => {
-    emit('close');
-  };
-
-  return {
-    closeEditModal
-  };
-  },
-  data() {
-  return {
-    isDropdownOpen: false,
-    selectedOption: '',
-    dropdownOptions: ['Option 1', 'Option 2', 'Option 3']
-  };
-  },
-  methods: {
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  },
-  selectOption(option) {
-    this.selectedOption = option;
-    this.isDropdownOpen = false; 
-    this.$emit('option-selected', option);
-    }
+  export default defineComponent({
+    name: 'TaskEditModal',
+    props: {
+    isModalOpen: {
+    type: Boolean,
+    default: false
   }
-});
-  </script>
+    },
+    setup(props, { emit }) {
+    const closeEditModal = () => {
+      emit('close');
+    };
+
+    return {
+      closeEditModal
+    };
+    },
+    data() {
+    return {
+      isDropdownOpen: false,
+      selectedOption: '',
+      dropdownOptions: ['Option 1', 'Option 2', 'Option 3']
+    };
+    },
+    methods: {
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    },
+    selectOption(option) {
+      this.selectedOption = option;
+      this.isDropdownOpen = false; 
+      this.$emit('option-selected', option);
+      }
+    }
+  });
+</script>
   
-  <style scoped>
+<style scoped>
   .modal-background {
     display: flex;
     position: fixed;
@@ -102,81 +107,80 @@ export default defineComponent({
     padding: 50px 0;
   }
 
-    .editmodal {
-      width: 750px;
-      padding: 50px 50px;
-      background-color: var(--light-grey);
-    }
-  
-    .textcenter {
-      text-align: center;
-    }
-
-    input, textarea {
-      border: none;
-    }
-
-    input {
-      height: 30px;
-      margin-left: 15px;
-    }
-
-    textarea {
-      width: 650px;
-      height: 100px;
-    }
-
-    .flex {
-      display: flex;
-    }
-
-    .dropdown-container {
-      position: relative;
-    }
-
-    .dropdown-container > input {
-      position: relative;
-      cursor: pointer;
-      padding-left: 8px;
-    }
-    
-    .dropdown-container > ul {
-      text-align: center;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      list-style-type: none;
-      background-color: var(--white);
-    }
-    
-    .dropdown-container > ul > li {
-      padding: 8px 50px;
-      cursor: pointer;
-    }
-    
-    .dropdown-container > ul > li:hover {
-      background-color:var(--light-green);
-    }
-
-    .close-button-container {
-      display: flex;
-      justify-content: end;
-      cursor: pointer;
-    }
-
-    .edit-button-container {
-      display: flex;
-      justify-content: center;
-    }
-
-    .edit-button {
-      border: none;
-      background-color: var(--light-green);
-      font-size: 18px;
-      width: 180px;
-      height: 40px;
-      cursor: pointer;
-      
+  .editmodal {
+    width: 750px;
+    padding: 50px 50px;
+    background-color: var(--light-grey);
   }
-  </style>
+  
+  .textcenter {
+    text-align: center;
+  }
+
+  input, textarea {
+    border: none;
+  }
+
+  input {
+    height: 30px;
+    margin-left: 15px;
+  }
+
+  textarea {
+    width: 650px;
+    height: 100px;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .dropdown-container {
+    position: relative;
+  }
+
+  .dropdown-container > input {
+    position: relative;
+    cursor: pointer;
+    padding-left: 8px;
+  }
+    
+  .dropdown-container > ul {
+    text-align: center;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    list-style-type: none;
+    background-color: var(--white);
+  }
+    
+  .dropdown-container > ul > li {
+    padding: 8px 50px;
+    cursor: pointer;
+  }
+    
+  .dropdown-container > ul > li:hover {
+    background-color:var(--light-green);
+  }
+
+  .close-button-container {
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+  }
+
+  .edit-button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .edit-button {
+    border: none;
+    background-color: var(--light-green);
+    font-size: 18px;
+    width: 180px;
+    height: 40px;
+    cursor: pointer;
+  }
+</style>
   

@@ -53,7 +53,7 @@
 </template>
   
 <script>
- import { defineComponent,  } from 'vue';
+ import { defineComponent, onMounted  } from 'vue';
  import getAllProjects from '../modules/project.js';
  import { mapState } from 'vuex';
 
@@ -74,14 +74,18 @@
   setup(props, { emit }) {
     const closeModal = () => {
       emit('close');
-    };
+  };
 
-    const { project,  editProject } = getAllProjects();
+  const { project,  editProject, getUsers } = getAllProjects();
+
+  onMounted(() => {
+    getUsers();
+  });
 
     return {
       closeModal,
       project,
-      editProject
+      editProject,
     };
   },
   data() {
@@ -100,7 +104,7 @@
       this.project.status = option; 
     }
   }
-});
+  });
  
 </script>
   
