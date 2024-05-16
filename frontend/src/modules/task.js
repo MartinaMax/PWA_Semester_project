@@ -20,7 +20,7 @@ const getAllTasks = () => {
         return `${day}.${month}.${year}`;
     };
 
-    const task = {
+    const task = ref({
         _id: "",
         title: "",
         description: "",
@@ -30,7 +30,7 @@ const getAllTasks = () => {
         author: userId,
         collaborators: [],
         project: ""
-    };
+    });
 
     const getUserById = async () => {
         try {
@@ -80,7 +80,7 @@ const getAllTasks = () => {
 
                 } else {
                     // User has multiple tasks
-                    const authorName = await getUserById(task.author) || "Unknown";
+                    const authorName = await getUserById(task.value.author) || "Unknown";
 
                     tasks.value.splice(0, tasks.value.length, ...data.map((task) => ({
                         _id: task._id,
@@ -106,7 +106,7 @@ const getAllTasks = () => {
     const addTask = () => {
 
         // Parse startDate and endDate strings into Date objects
-       const startDate = task.value.startDate ? new Date(task.value.startDate) : null;
+        const startDate = task.value.startDate ? new Date(task.value.startDate) : null;
         const endDate = task.value.endDate ? new Date(task.value.endDate) : null;
 
         const requestOption = {
@@ -134,9 +134,9 @@ const getAllTasks = () => {
                 }
                 return response.json();
             })
-            // .then(() => {
-            //     getTaskByProject();
-            // })
+            .then(() => {
+                getTaskByProject();
+            })
             .catch(error => {
                 console.error('Error adding task:', error);
                 window.alert('Failed to add new task. Please try again.');

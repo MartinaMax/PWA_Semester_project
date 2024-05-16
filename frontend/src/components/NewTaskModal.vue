@@ -45,7 +45,7 @@
           </form>
           <!-- Create button -->
           <div class="create-button-container">
-            <button class="create-button" type="submit" @click="addTask(task), closeModal()">Create</button>
+            <button class="create-button" type="submit" @click="addTask(task); closeModal()">Create</button>
           </div>
         </div>
     </div>  
