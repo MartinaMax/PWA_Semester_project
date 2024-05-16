@@ -6,15 +6,15 @@
       <h3>Done</h3>
     </div>
     <div class="task-container">
-      <div class="task-scroll-container" ref="toDo">
+      <div class="task-scroll-container">
         <TaskCard :tasks="toDoTasks" state="To do" />
       </div>
       <div class="gapline"></div>
-      <div class="task-scroll-container" ref="inProgress">
+      <div class="task-scroll-container">
         <TaskCard :tasks="inProgressTasks" state="In progress" />
       </div>
       <div class="gapline"></div>
-      <div class="task-scroll-container" ref="done">
+      <div class="task-scroll-container" >
         <TaskCard :tasks="doneTasks" state="Done" />
       </div>
     </div>
@@ -24,7 +24,7 @@
 <script>
 import TaskCard from '../components/TaskCard.vue'
 import getAllTasks from "../modules/task.js"
-import { onMounted, ref } from "vue"
+import { ref } from "vue"
 
 export default {
   name: 'TaskContainer',
@@ -37,28 +37,30 @@ export default {
     const inProgressTasks = ref([]);
     const doneTasks = ref([]);
 
-    onMounted(async () => {
-      await getTaskByProject();
-      if (tasks && tasks.value) {
-        tasks.value.forEach(task => {
-          if (task.state === "To do") {
-            toDoTasks.value.push(task);
-            console.log(toDoTasks);
-          } else if (task.state === "In progress") {
-            inProgressTasks.value.push(task);
-            console.log(inProgressTasks);
-          } else if (task.state === "Done") {
-            doneTasks.value.push(task);
-            console.log(doneTasks);
-          } else {
-            const a = "potato"
-            console.log(a)
-          }
-        });
-      }
-    });
+    const categorizeTasks = () => {
+      tasks.value.forEach(task => {
+        if (task.state === "To do") {
+          toDoTasks.value.push(task);
+          console.log(toDoTasks);
+        } else if (task.state === "In progress") {
+          inProgressTasks.value.push(task);
+          console.log(inProgressTasks);
+        } else if (task.state === "Done") {
+          doneTasks.value.push(task);
+          console.log(doneTasks);
+        } else {
+          const a = "potato"
+          console.log(a)
+        }
+      });
+    
+    };
+    
+      getTaskByProject();
+      categorizeTasks(tasks);
+ 
 
-    return { toDoTasks, inProgressTasks, doneTasks}
+    return { toDoTasks, inProgressTasks, doneTasks };
   }
 }
 </script>
