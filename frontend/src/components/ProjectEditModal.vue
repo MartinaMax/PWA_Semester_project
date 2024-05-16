@@ -10,14 +10,14 @@
           <input type="text" name="title" :placeholder="projectTitle" v-model="project.title" required >
         </div>
         <p class="margin-b-8">Description*</p>
-        <textarea class="margin-b-15"    v-model="project.description">LOrem ipsum</textarea>
+        <textarea class="margin-b-15" v-model="project.description">LOrem ipsum</textarea>
         <div class="flex margin-b-15">
           <p>Start date*</p>
-          <input type="date" name="startDate"   v-model="project.startDate" required>
+          <input type="date" name="startDate" v-model="project.startDate" required>
         </div>
         <div class="flex margin-b-15">
           <p>End date*</p>
-          <input type="date" name="endDate"  v-model="project.endDate" required>
+          <input type="date" name="endDate" v-model="project.endDate" required>
         </div>
         <!-- Status dropdown -->
         <div class="flex margin-b-15">
@@ -64,22 +64,17 @@
     }
   },
   computed: {
-  ...mapState(['projectTitle', 'projectDescription'])
-},
+  ...mapState(['projectTitle'])
+  },
   created() {
     console.log('projectTitle:', this.projectTitle);
-    console.log('projectDescription:', this.projectDescription);
   },
   setup(props, { emit }) {
     const closeModal = () => {
       emit('close');
     };
 
-    const { project,  editProject,  } = getAllProjects();
-
-    // onMounted((projects) => {
-    //   getProjectbyID(projects);
-    // });
+    const { project,  editProject } = getAllProjects();
 
     return {
       closeModal,
@@ -165,7 +160,7 @@
       top: 100%;
       right: 0;
       list-style-type: none;
-      background-color: #fff;
+      background-color: var(--white);
     }
     
     .dropdown-container > ul > li {
@@ -174,7 +169,7 @@
     }
     
     .dropdown-container > ul > li:hover {
-      background-color: #f0f0f0;
+      background-color: var(--light-green);
     }
 
     .close-button-container {
