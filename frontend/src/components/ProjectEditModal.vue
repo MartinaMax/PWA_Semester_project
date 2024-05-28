@@ -35,11 +35,11 @@
         <div>
         <!-- Collaborators checkbox -->
           <p class="margin-b-8">Collaborators</p>
-          <div class="collaborators">
-            <div v-for="(collaborator, index) in collaborators" :key="index">
-              <input type="checkbox" :id="'collaborator_' + collaborator.id" :value="collaborator.id" v-model="selectedCollaborators">
-              <label :for="'collaborator_' + collaborator.id">{{ collaborator.name }}</label>
-              <label :for="'collaborator_' + collaborator.id">{{ collaborator.email}}</label>
+          <div class="collaborators margin-b-15">
+            <div class="collaborators-back" v-for="(collaborator, index) in collab" :key="index">
+              <input class="custom-checkbox-label" type="checkbox" :id="'collaborator_' + collaborator._id" :value="collaborator._id" v-model="project.collaborators">
+              <label :for="'collaborator_' + collaborator._id">{{ collaborator.name }}</label>
+              <label :for="'collaborator_' + collaborator._id">{{ collaborator.email}}</label>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
       emit('close');
   };
 
-  const { project,  editProject, getUsers } = getAllProjects();
+  const { project,  editProject, getUsers, collab } = getAllProjects();
 
   onMounted(() => {
     getUsers();
@@ -86,6 +86,7 @@
       closeModal,
       project,
       editProject,
+      collab,
     };
   },
   data() {
@@ -177,6 +178,18 @@
   .dropdown-container > ul > li:hover {
     background-color: var(--light-green);
   }
+
+  .collaborators {
+    overflow-y: auto;
+    height: 80px;
+  }
+
+  .collaborators-back {
+    background-color: var(--white);
+    display: flex;
+    gap: 75px;
+  }
+
 
   .close-button-container {
     display: flex;
